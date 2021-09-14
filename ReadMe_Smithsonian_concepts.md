@@ -2,8 +2,8 @@
 
 ![image](https://user-images.githubusercontent.com/86888346/133334168-100b183a-54c9-4540-be45-4f81c49896ff.png)
 <p><b>A World of Meteorites</b></br>
-This visualization would comprise the meteorite collections from the mineral sciences department at the Smithsonian Museum of Natural History. There are 7,568 meteorites documented.
-I am interested in visualizing the location and quantity of meteorites from this collection, while utilizing the unique color and texture to help the viewer move across the map. The bubbles would scale up by quantity on the main map page. Once clicked, an interface will open with another bubble map or visualization that shows the various types, textures, and weights of the meteorites that were found in that location.</p>
+This visualization would be comprised of the meteorite collection from the mineral sciences department at the Smithsonian Museum of Natural History. There are 7,568 meteorites documented.
+I am interested in visualizing the location and quantity of meteorites from this collection, utilizing their unique color and texture to help the viewer move across the map. The bubbles would scale up with relation to the quantity of meteorites in each region on the main map page. Once clicked, an interface will open with another bubble map or visualization that shows the various types, textures, and weights of the meteorites that were found in that location.</p>
 
 ![image](https://user-images.githubusercontent.com/86888346/133334519-47878ba5-1511-42ee-a5b3-3acc3e8e3809.png)
 
