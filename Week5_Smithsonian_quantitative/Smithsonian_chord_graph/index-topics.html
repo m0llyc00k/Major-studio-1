@@ -10,6 +10,7 @@
 
 .node:hover {
   fill: #000;
+  font-size: 14px;
  
 }
 
@@ -20,35 +21,42 @@
   pointer-events: none;
 }
 
+
 .node:hover,
 .node--source,
 .node--target {
   font-weight: 500;
+  font-size: 14px
 }
-
 
 
 .node--source {
   fill: #2ca02c;
+   
 }
 
 .node--target {
   fill: #662ca0;
+   
 }
 
 .link:hover,
-.link--source,
-.link--target {
-  stroke-opacity: 1;
-  stroke-width: 1.5px;
+.node--source,
+.link--target{
+
+  stroke-opacity: 1; 
+  stroke-width: 3px;
 }
+
 
 .link--source {
   stroke: #662ca0;
 }
 
+
 .link--target {
   stroke: #2ca02c;
+
 }
 
 
@@ -76,8 +84,8 @@ var svg = d3.select("body").append("svg")
     .attr("transform", "translate(800, 800)");
     
 
-var link = svg.append("g").selectAll(".link"),
-    node = svg.append("g").selectAll(".node");
+var link = svg.append("g").selectAll(".link");
+var node = svg.append("g").selectAll(".node");
 
 d3.csv("topics_titles_dataFinal.csv", function(error, topics) {
   if (error) throw error;
@@ -117,59 +125,81 @@ function mouseovered(d) {
 
 node
   .each(function(n) { n.target = n.source = false; })
-      // .style('fill', "#B8B8B8")
-      //   d3.select(this).style('fill', '#69b3b2')
-      
-    d3.selectAll(".node")
-      .transition()
-      .duration(100)
-      .style("opacity", 0)
-    d3.select(this)
-      .transition()
-      .duration(100)
-      .style("opacity", 1)
 
 
   link
       .classed("link--target", function(l) { if (l.target === d) return l.source.source = true})
-      .classed("link--source", function(l) { if (l.source === d) return l.target.target = true; })
-      .filter(function(l) { return l.target === d || l.source === d;})
-      // .style('stroke', function (link_d) { return link_d.source === d.id || link_d.target === d.id ? '#69b3b2' : '#b8b8b8';})
-      // .style('stroke-width', function (link_d) { return link_d.source === d.id || link_d.target === d.id ? 4 : 1;})
-
+      .classed("link--source", function(l) { if (l.source === d) return l.target.target = true})
+      .filter(function(l) { return l.target === d || l.source === d})
+      .style('opacity', function (link_d) { return link_d.source === d.source || link_d.target === d.target ? 0 : 1;})
       
-    
+
+  
  
   node
-      // .classed("node--target", function(n) { return n.target; })
-      // .classed("node--source", function(n) { return n.source; })
+      .classed("node--target", function(n) { return n.target; })
+      .classed("node--source", function(n) { return n.source; })
+      
+      
 
 
-}
+  d3.selectAll(".node")
+      .transition()
+      .duration(200)
+      .style("opacity", 0)
+    d3.select(this)
+      .transition()
+      .duration(200)
+      .style("opacity", 1)
+      
+    d3.selectAll(".node--target")
+      .transition()
+      .duration(200)
+      .style("opacity", '1 !important')
+    d3.select(this)
+      .transition()
+      .duration(200)
+      .style("opacity", '1 !important')
+      
+            
+    d3.selectAll(".node--source")
+      .transition()
+      .duration(200)
+      .style("opacity", '1 !important')
+    d3.select(this)
+      .transition()
+      .duration(200)
+      .style("opacity", '1 !important')
+      
+    d3.selectAll(".link")
+      .transition()
+      .duration(200)
+      .style("opacity", '0 !important')
+    d3.select(this)
+      .transition()
+      .duration(200)
+      .style("opacity", '1 !important')
 
-//       if(d3.selectAll.style("opacity") != 0
-// ){
-//       node
-//       .style("opacity", .4)
-// } else {
-  
-//   node.style("opacity", 1.0)
-// }
+};
+
 
 
 
 
 function mouseouted(d) {
+  
+  
   link
-
       .classed("link--target", false)
       .classed("link--source", false)
       .transition()
-      // .style("opacity",)
-      // .style('stroke', 'black')
-      // .style('stroke-width', '1')
-    
-d3.selectAll(".node")
+
+    node
+     
+      .classed("node--target", false)
+      .classed("node--source", false)
+
+  d3.selectAll(".node")
       .transition()
       .duration(200)
       .style("opacity", 1)
@@ -177,21 +207,22 @@ d3.selectAll(".node")
       .transition()
       .duration(200)
       .style("opacity", 1)
-      
-      
 
-    node
-     
-      // .classed("node--target", false)
-      // .classed("node--source", false)
-      // .style('fill', "#69b3a2")
+      
+    d3.selectAll(".node--target")
+      .transition()
+      .duration(200)
+      .style("opacity", '1 !important')
+    d3.select(this)
+      .transition()
+      .duration(200)
+      .style("opacity", '1 !important')
+
 
 
 }
 
 
-  //   if(link.mouseovered(d)){
-  // link.style("opacity", 0.3)
 
 //  construct the package hierarchy from class names.
 function packageHierarchy(titles) {
