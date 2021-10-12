@@ -3040,6 +3040,11 @@ var topics = [
     "Technology"
 ]
 
+
+var fs = require('fs');
+var result =[]
+
+
 var a = {}
 
 for (var i = 0; i < data.length; i++) {
@@ -3052,23 +3057,24 @@ for (var i = 0; i < data.length; i++) {
 }
 
 console.log(a)
-// var fs = require('fs');
-// var result =[]
 
-// for (var i = 0; i < data.length; i++) {
-//    var newRow = [data[i].title]
+// fs.writeFileSync('topicsData.json', JSON.stringify(a));
+
+
+for (var i = 0; i < data.length; i++) {
+   var newRow = [data[i].title]
    
-//    for (var j =0; j < topics.length; j++) {
-//       if (data[i].topic.includes(topics[j])) {
-//          newRow.push(1)
-//       } else {
-//          newRow.push('')
-//       }
-//    }
+   for (var j =0; j < topics.length; j++) {
+      if (data[i].topic.includes(topics[j])) {
+         newRow.push(1)
+      } else {
+         newRow.push('')
+      }
+   }
    
-//    result.push(newRow)
-// }
+   result.push(newRow)
+}
 
-// result.map(row => row.join(','))
+result.map(row => row.join(','))
 
-// fs.writeFileSync('topicData.json', JSON.stringify(result.map(row => row.join(','))));
+fs.writeFileSync('topicData2.json', JSON.stringify(result.map(row => row.join(','))));

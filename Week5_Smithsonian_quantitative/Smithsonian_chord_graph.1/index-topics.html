@@ -11,8 +11,8 @@
 .node:hover {
   fill: #000;
   font-size: 12px;
+ 
 }
-
 
 .link {
   stroke: steelblue;
@@ -130,7 +130,7 @@ node
       .classed("link--target", function(l) { if (l.target === d) return l.source.source = true})
       .classed("link--source", function(l) { if (l.source === d) return l.target.target = true})
       .filter(function(l) { return l.target === d || l.source === d})
-      // .style('opacity', function (link_d) { return link_d.source === d.source || link_d.target === d.target ? 1 : 0;})
+      // .style('opacity', function (link_d) { return link_d.source === d.source || link_d.target === d.target ? 0 : 1;})
       
 
   
@@ -201,37 +201,36 @@ function mouseouted(d) {
      
       .classed("node--target", false)
       .classed("node--source", false)
-      .transition()
 
   d3.selectAll(".node")
       .transition()
-      .duration(100)
+      .duration(200)
       .style("opacity", 1)
     d3.select(this)
       .transition()
-      .duration(100)
+      .duration(200)
       .style("opacity", 1)
 
     d3.selectAll(".node--target")
       .transition()
-      .duration(100)
+      .duration(200)
       .style("opacity", '1 !important')
     d3.select(this)
       .transition()
-      .duration(100)
+      .duration(200)
       .style("opacity", '1 !important')
 
     d3.selectAll(".link")
       .transition()
-      .duration(100)
+      .duration(200)
       .style("opacity", 1)
     d3.selectAll(".link--target")
       .transition()
-      .duration(100)
+      .duration(200)
       .style("opacity", 0)
     d3.selectAll(".link--source")
       .transition()
-      .duration(100)
+      .duration(200)
       .style("opacity", 0)
 
 }
