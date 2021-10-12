@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+		<title>Ephemera as Persuasion</title>
+		<script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+
+</head>
+<body>
+	<script type="text/javascript">
+
+       var dataset = {
+            "children": [
+  {
+    "Topic": "Activism",
+    "Quantity": 96
+  },
+  {
+    "Topic": "Politics",
+    "Quantity": 90
+  },
+  {
+    "Topic": "Civil Rights",
+    "Quantity": 74
+  },
+  {
+    "Topic": "U.S. History, 1969-2001",
+    "Quantity": 50
+  },
+  {
+    "Topic": "International affairs",
+    "Quantity": 47
+  },
+  {
+    "Topic": "Black power",
+    "Quantity": 44
+  },
+  {
+    "Topic": "Justice",
+    "Quantity": 42
+  },
+  {
+    "Topic": "Pan Africanism",
+    "Quantity": 41
+  },
+  {
+    "Topic": "Race relations",
+    "Quantity": 39
+  },
+  {
+    "Topic": "U.S. History, 2001-",
+    "Quantity": 27
+  },
+  {
+    "Topic": "Black Lives Matter",
+    "Quantity": 26
+  },
+  {
+    "Topic": "U.S. History, 1961-1969",
+    "Quantity": 23
+  },
+  {
+    "Topic": "Resistance",
+    "Quantity": 22
+  },
+  {
+    "Topic": "Police brutality",
+    "Quantity": 21
+  },
+  {
+    "Topic": "Political organizations",
+    "Quantity": 20
+  },
+  {
+    "Topic": "Decolonization",
+    "Quantity": 19
+  },
+  {
+    "Topic": "Women",
+    "Quantity": 18
+  },
+  {
+    "Topic": "Violence",
+    "Quantity": 17
+  },
+  {
+    "Topic": "Mass media",
+    "Quantity": 15
+  },
+  {
+    "Topic": "Dance",
+    "Quantity": 14
+  },
+  {
+    "Topic": "Anti-apartheid movements",
+    "Quantity": 13
+  },
+  {
+    "Topic": "Education",
+    "Quantity": 13
+  },
+  {
+    "Topic": "Social reform",
+    "Quantity": 10
+  },
+  {
+    "Topic": "Associations and institutions",
+    "Quantity": 9
+  },
+  {
+    "Topic": "African diaspora",
+    "Quantity": 9
+  },
+  {
+    "Topic": "Labor unions",
+    "Quantity": 9
+  },
+  {
+    "Topic": "Correspondence",
+    "Quantity": 9
+  },
+  {
+    "Topic": "Feminism",
+    "Quantity": 8
+  },
+  {
+    "Topic": "Segregation",
+    "Quantity": 8
+  },
+  {
+    "Topic": "U.S. History, 1953-1961",
+    "Quantity": 8
+  },
+  {
+    "Topic": "Law",
+    "Quantity": 8
+  },
+  {
+    "Topic": "Suffrage",
+    "Quantity": 7
+  },
+  {
+    "Topic": "Communities",
+    "Quantity": 7
+  },
+  {
+    "Topic": "Reconstruction, U.S. History, 1865-1877",
+    "Quantity": 6
+  },
+  {
+    "Topic": "Freedom",
+    "Quantity": 6
+  },
+  {
+    "Topic": "American South",
+    "Quantity": 6
+  },
+  {
+    "Topic": "Religion",
+    "Quantity": 5
+  },
+  {
+    "Topic": "Discrimination",
+    "Quantity": 5
+  },
+  {
+    "Topic": "Men",
+    "Quantity": 5
+  },
+  {
+    "Topic": "Anti-Lynching Movement",
+    "Quantity": 5
+  },
+  {
+    "Topic": "Race",
+    "Quantity": 5
+  },
+  {
+    "Topic": "Music",
+    "Quantity": 4
+  },
+  {
+    "Topic": "Lynching",
+    "Quantity": 4
+  },
+  {
+    "Topic": "March on Washington for Jobs and Freedom",
+    "Quantity": 4
+  },
+  {
+    "Topic": "Design",
+    "Quantity": 4
+  },
+  {
+    "Topic": "Economics",
+    "Quantity": 3
+  },
+  {
+    "Topic": "United States History",
+    "Quantity": 3
+  },
+  {
+    "Topic": "Urban life",
+    "Quantity": 3
+  },
+  {
+    "Topic": "Multilingual communication",
+    "Quantity": 3
+  },
+  {
+    "Topic": "Slavery",
+    "Quantity": 3
+  },
+  {
+    "Topic": "Holidays and festivals",
+    "Quantity": 3
+  },
+  {
+    "Topic": "U.S. History, 1919-1933",
+    "Quantity": 3
+  },
+  {
+    "Topic": "Children",
+    "Quantity": 3
+  },
+  {
+    "Topic": "Graphic arts",
+    "Quantity": 3
+  },
+  {
+    "Topic": "American West",
+    "Quantity": 3
+  },
+  {
+    "Topic": "Group identity",
+    "Quantity": 3
+  },
+  {
+    "Topic": "Sexuality",
+    "Quantity": 3
+  },
+  {
+    "Topic": "Black Power (Black Pride)",
+    "Quantity": 3
+  },
+  {
+    "Topic": "Latin jazz (Music)",
+    "Quantity": 2
+  },
+  {
+    "Topic": "Jazz (Music)",
+    "Quantity": 2
+  },
+  {
+    "Topic": "Vietnam War, 1961-1975",
+    "Quantity": 2
+  },
+  {
+    "Topic": "Gender issues",
+    "Quantity": 2
+  },
+  {
+    "Topic": "Transportation",
+    "Quantity": 2
+  },
+  {
+    "Topic": "Military",
+    "Quantity": 2
+  },
+  {
+    "Topic": "African American - Latinx Solidarity",
+    "Quantity": 2
+  },
+  {
+    "Topic": "Emancipation",
+    "Quantity": 2
+  },
+  {
+    "Topic": "White supremacy movements",
+    "Quantity": 2
+  },
+  {
+    "Topic": "Nuyorican Movement",
+    "Quantity": 2
+  },
+  {
+    "Topic": "Colonies",
+    "Quantity": 2
+  },
+  {
+    "Topic": "Emigration and immigration",
+    "Quantity": 2
+  },
+  {
+    "Topic": "Tulsa Race Massacre",
+    "Quantity": 2
+  },
+  {
+    "Topic": "World War, 1939-1945",
+    "Quantity": 2
+  },
+  {
+    "Topic": "Communication",
+    "Quantity": 2
+  },
+  {
+    "Topic": "Health",
+    "Quantity": 2
+  },
+  {
+    "Topic": "LGBTQ",
+    "Quantity": 2
+  },
+  {
+    "Topic": "Prisons",
+    "Quantity": 2
+  },
+  {
+    "Topic": "Antislavery",
+    "Quantity": 2
+  },
+  {
+    "Topic": "Religious groups",
+    "Quantity": 2
+  },
+  {
+    "Topic": "Black Nationalism",
+    "Quantity": 2
+  },
+  {
+    "Topic": "Advertising",
+    "Quantity": 2
+  },
+  {
+    "Topic": "U.S. History, 1933-1945",
+    "Quantity": 1
+  },
+  {
+    "Topic": "Anti-slavery movements",
+    "Quantity": 1
+  },
+  {
+    "Topic": "Art",
+    "Quantity": 1
+  },
+  {
+    "Topic": "Instrumentalists (Musicians)",
+    "Quantity": 1
+  },
+  {
+    "Topic": "Photography",
+    "Quantity": 1
+  },
+  {
+    "Topic": "Hate crimes",
+    "Quantity": 1
+  },
+  {
+    "Topic": "Government",
+    "Quantity": 1
+  },
+  {
+    "Topic": "Selma to Montgomery Marches",
+    "Quantity": 1
+  },
+  {
+    "Topic": "U.S. History, Civil War, 1861-1865",
+    "Quantity": 1
+  },
+  {
+    "Topic": "Mississippi Freedom Summer",
+    "Quantity": 1
+  },
+  {
+    "Topic": "Recreation",
+    "Quantity": 1
+  },
+  {
+    "Topic": "Singers (Musicians)",
+    "Quantity": 1
+  },
+  {
+    "Topic": "Poverty",
+    "Quantity": 1
+  },
+  {
+    "Topic": "Baseball",
+    "Quantity": 1
+  },
+  {
+    "Topic": "U.S. History, 1945-1953",
+    "Quantity": 1
+  },
+  {
+    "Topic": "Motion pictures",
+    "Quantity": 1
+  },
+  {
+    "Topic": "Abolitionist movement",
+    "Quantity": 1
+  },
+  {
+    "Topic": "Societies",
+    "Quantity": 1
+  },
+  {
+    "Topic": "Caricature and cartoons",
+    "Quantity": 1
+  },
+  {
+    "Topic": "Sports",
+    "Quantity": 1
+  },
+  {
+    "Topic": "Finance",
+    "Quantity": 1
+  },
+  {
+    "Topic": "Afrobeat (Music)",
+    "Quantity": 1
+  },
+  {
+    "Topic": "Housing",
+    "Quantity": 1
+  },
+  {
+    "Topic": "Technology",
+    "Quantity": 1
+  },
+  {
+    "Topic": "Humanitarianism",
+    "Quantity": 1
+  },
+  {
+    "Topic": "Poor People's Campaign",
+    "Quantity": 1
+  },
+  {
+    "Topic": "Portuguese colonialism",
+    "Quantity": 1
+  },
+  {
+    "Topic": "Young Lords Movement",
+    "Quantity": 1
+  },
+  {
+    "Topic": "Business",
+    "Quantity": 1
+  },
+  {
+    "Topic": "Calypso (Music)",
+    "Quantity": 1
+  }
+]
+  
+
+        };
+
+        var diameter = 1000;
+        var color = d3.scaleOrdinal(d3.schemeCategory20b);
+
+        var bubble = d3.pack(dataset)
+            .size([diameter, diameter])
+            .padding(30);
+
+        var svg = d3.select("body")
+            .append("svg")
+            .attr("width", diameter)
+            .attr("height", diameter)
+            .attr("class", "bubble")
+
+            
+
+        var nodes = d3.hierarchy(dataset)
+            .sum(function(d) { return d.Quantity; });
+
+
+        var node = svg.selectAll(".node")
+            .data(bubble(nodes).descendants())
+            .enter()
+            .filter(function(d){
+                return  !d.children
+            })
+            .append("g")
+            .attr("class", "node")
+            .attr("transform", function(d) {
+                return "translate(" + d.x + "," + d.y + ")";
+            });
+
+        node.append("title")
+            .text(function(d) {
+                return d.Topic + ": " + d.Count;
+            });
+
+        node.append("circle")
+            .attr("r", function(d) {
+                return d.r;
+            })
+            .style("fill", function(d,i) {
+                return color(i);
+                
+            });
+
+        node.append("text")
+            .attr("dy", ".1em")
+            .style("text-anchor", "middle")
+            .text(function(d) {
+                return d.data.Topic.substring(0, d.r / 5);
+            })
+            .attr("font-family", "sans-serif")
+            .attr("font-size", function(d){
+                return d.r/5;
+            })
+            .attr("fill", "white");
+
+        node.append("text")
+            .attr("dy", "1.8em")
+            .style("text-anchor", "middle")
+            .text(function(d) {
+                return d.data.Quantity;
+            })
+            .attr("font-family",  "Gill Sans", "Gill Sans MT")
+            .attr("font-size", function(d){
+                return d.r/5;
+            })
+            .attr("fill", "white");
+
+
+        d3.select(self.frameElement)
+            .style("height", diameter + "px");
+            
+
+  
+
+
+	</script>
+</body>
+</html>
