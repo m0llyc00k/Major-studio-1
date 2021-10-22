@@ -1,5 +1,5 @@
-let height = 700;
-let width = 1400;
+let height = 450;
+let width = 1000;
 let margin = ({top: 0, right: 40, bottom: 34, left: 40});
 let allDates = [];
 
@@ -57,7 +57,8 @@ svg.append("g")
 // Create line that connects circle and X axis
 let xLine = svg.append("line")
     .attr("stroke", "rgb(96,125,139)")
-    .attr("stroke-dasharray", "1,2");
+    .attr("stroke-dasharray", "3,4")
+    .attr("stroke-width", "2");
 
 // Create tooltip div and make it invisible
 let tooltip = d3.select("#svganchor").append("div")
@@ -65,7 +66,7 @@ let tooltip = d3.select("#svganchor").append("div")
     .style("opacity", 0);
 
 // Load and process data
-d3.csv("https://raw.githubusercontent.com/m0llyc00k/major-studio-1/main/beeswarm-data-new.csv").then(function (data) {
+d3.csv("https://raw.githubusercontent.com/m0llyc00k/major-studio-1/main/Qualitative/examples-beeswarm/beeswarm-data-new-Images.csv").then(function (data) {
 
     let dataSet = data;
 
@@ -93,7 +94,7 @@ d3.csv("https://raw.githubusercontent.com/m0llyc00k/major-studio-1/main/beeswarm
 
 //set x axis
            let xAxis = d3.axisBottom(xScale)
-                .ticks(25, ".0f");
+                .ticks(12, ".0f");
         
 
         d3.transition(svg).select(".x.axis")
@@ -107,14 +108,14 @@ d3.csv("https://raw.githubusercontent.com/m0llyc00k/major-studio-1/main/beeswarm
             .force("x", d3.forceX(function(d) {
                 // Mapping of values from date/perCapita column of dataset to range of SVG chart (<margin.left, margin.right>)
                 return xScale(+d[chartState.measure]);  // This is the desired position
-            }).strength(12))  // Increase velocity
+            }).strength(8))  // Increase velocity
             .force("y", d3.forceY((height / 2) - margin.bottom))  // // Apply positioning force to push nodes towards center along Y axis
-            .force("collide", d3.forceCollide(16)) // Apply collision force with radius of 9 - keeps nodes centers 9 pixels apart
+            .force("collide", d3.forceCollide(10)) // Apply collision force with radius of 9 - keeps nodes centers 9 pixels apart
             .stop();  // Stop simulation from starting automatically
 
         // Manually run simulation
         for (let i = 0; i < dataSet.length; ++i) {
-            simulation.tick(25);
+            simulation.tick(5);
         }
 
         // Create ephemera circles
@@ -133,7 +134,9 @@ d3.csv("https://raw.githubusercontent.com/m0llyc00k/major-studio-1/main/beeswarm
             .attr("class", "title")
             .attr("cx", width - margin.right)
             .attr("cy", (height) - margin.bottom)
-            .attr("r", 15)
+            .attr("r", 10)
+            .attr("stroke", "#F3F3F3")
+            .attr("stroke-width", .5)
             .attr("fill", function(d){ return colors(d.typeSort)})
             .merge(titleCircles)
             .transition()
@@ -143,15 +146,21 @@ d3.csv("https://raw.githubusercontent.com/m0llyc00k/major-studio-1/main/beeswarm
 
         // Show tooltip when hovering over circle (data for respective country)
         d3.selectAll(".title").on("mousemove", function(d) {
-            tooltip.html(`<strong>${d.title}</strong><br>
+            tooltip.html(`<div id="textTooltip">
+                          <strong>${d.title}</strong><br>
                           ${d.typeTrue}<br> 
                           <strong>${d.dateTrue}</strong><br>
-                          ${d.description}
-                          
+                          ${d.description} <br>
+                          </div>
+                          <div id="imageTooltip" float:right>
+                          <img src="${d.primaryImage}" alt="image here">
+                          </div>
                           `)
-                .style('top', d3.event.pageY - 12 + 'px')
-                .style('left', d3.event.pageX + 25 + 'px')
-                .style("opacity", 0.9);
+                .style('top', d3.event.pageY - 1 + 12 + 'px')
+                .style('left', d3.event.pageX + 1 + 25 + 'px')
+                .style("opacity", 0.9)
+    
+               
                 
                 
 

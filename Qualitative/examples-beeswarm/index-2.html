@@ -12,39 +12,47 @@
             background-color: #C5A08E;
         }
         
+      .grid-container {
+          display: grid;
+          grid-template-columns: 10fr 5fr;
+          grid-gap: 10px;
+          margin: auto;
+          }
+        
 
-        .centered {
-            display: inline-table;
-            margin: 0 auto;
-           
-        }
+        /*.centered {*/
+        /*    display: table;*/
+        /*    margin: 10px auto;*/
+
+        /*}*/
+        
 
         .graph {
-            display: inline-table;
-            width: 50%;
+            /*width: 50%;*/
+            /*float: left;*/
             margin: 0 auto;
             background-color: #C5A08E;
+            padding:20px;
+    
         }
 
         #checkboxes > * {
             font-size: 14px;
-            display: table;
+            color: #F3F3F3;
             padding-top: 3px;
+            display: table;
+
            
         }
-        
-
 
         .measure-group {
-            display:inline;
+            display:grid;
         }
 
         .scale-group {
             padding-left: 40px;
-            display:inline;
+            display:grid;
         }
-
-
 
         .measure, .scale {
         }
@@ -60,7 +68,7 @@
         }
 
         div.tooltip {
-            position: absolute;
+            position: fixed;
             text-align: left;
             color: white;
             white-space: normal;
@@ -70,22 +78,25 @@
             border: 1px solid rgb(96,125,139);
             border-radius: 2px;
             pointer-events: none;
-            cursor: none;
+            cursor: pointer;
         }
 
         .axis path,
         .axis line {
             fill: none;
             stroke: rgb(96,125,139);
-            shape-rendering: crispEdges;
+            shape-rendering: optimizeSpeed;
         }
 
         .axis text {
             font: 15px sans-serif;
+            color: #F3F3F3;
            
         }
 
         .typeSort {}
+        
+
 
       
 
@@ -96,8 +107,10 @@
 </head>
 
 <body>
+    <div class="grid-container">
 <div id="svganchor" class="graph centered">
 </div>
+
 <div id="checkboxes" class="centered">
     <span style="position:relative; top: 3px">Ephemera Type:&nbsp;&nbsp;</span>
     <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
@@ -133,8 +146,6 @@
         <span class="mdl-checkbox__label" id="otherColor" style="font-size: 20px; color: #A8E1D8;">&#9679;&nbsp;&nbsp;</span>
     </label>
 </div>
-
-<div id="svganchor" class="graph centered">
 </div>
 
 
