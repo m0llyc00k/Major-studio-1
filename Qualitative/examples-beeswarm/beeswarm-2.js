@@ -31,7 +31,7 @@ let colors = d3.scaleOrdinal()
     .domain(["buttons", "signs", "posters", "placards", "correspondence", "pamphlets", "fliers", "other"])
     .range(['#936C85','#530094','#A8B1E1','#0E09F8','#8C19E7','#12107A', '#8387F5', '#A8E1D8']);
 
-d3.select("#buttonsColor").style("color", colors("buttons"));
+d3.select("#buttonsColor").style("padding", "6px").style("color", colors("buttons"));
 d3.select("#signsColor").style("color", colors("signs"));
 d3.select("#postersColor").style("color", colors("posters"));
 d3.select("#placardsColor").style("color", colors("placards"));
