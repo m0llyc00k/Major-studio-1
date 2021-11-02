@@ -1,6 +1,6 @@
-let height = 450;
-let width = 1000;
-let margin = ({top: 0, right: 40, bottom: 34, left: 40});
+let height = 800;
+let width = 1250;
+let margin = ({top: 40, right: 40, bottom: 34, left: 40});
 let allDates = [];
 
 // Data structure describing chart scales
@@ -31,7 +31,7 @@ let colors = d3.scaleOrdinal()
     .domain(["buttons", "signs", "posters", "placards", "correspondence", "pamphlets", "fliers", "other"])
     .range(['#936C85','#530094','#A8B1E1','#0E09F8','#8C19E7','#12107A', '#8387F5', '#A8E1D8']);
 
-d3.select("#buttonsColor").style("padding", "6px").style("color", colors("buttons"));
+d3.select("#buttonsColor").style("color", colors("buttons"));
 d3.select("#signsColor").style("color", colors("signs"));
 d3.select("#postersColor").style("color", colors("posters"));
 d3.select("#placardsColor").style("color", colors("placards"));
@@ -44,7 +44,31 @@ d3.select("#otherColor").style("color", colors("other"));
 let svg = d3.select("#svganchor")
     .append("svg")
     .attr("width", width)
-    .attr("height", height);
+    .attr("height", height)
+
+svg.append("text")
+        .attr("x", 25)
+        .attr("y", 50)
+        .attr("text-anchor", "left")
+        .style("font-size", "39px")
+        .style("fill", "#f2f2f2")
+        .style("font-family", "Zilla Slab")
+        .style("font-variant", "small-caps")
+        .text("Ephemera at the Smithsonian");
+
+// Add subtitle to graph
+svg.append("text")
+        .attr("x", 125)
+        .attr("y", 80)
+        .attr("text-anchor", "left")
+        .style("font-size", "24px")
+        .style("fill", "#f2f2f2")
+        .style("max-width", 400)
+        .style("font-family", "Zilla Slab Highlight")
+        .style("font-weight", 700)
+        .text("Temporary Objects with Permanent Impact");
+
+
 
 let xScale = d3.scaleLinear()
     .domain(allDates.map(d => d.dateSort))
@@ -52,7 +76,8 @@ let xScale = d3.scaleLinear()
 
 svg.append("g")
     .attr("class", "x axis")
-    .attr("transform", "translate(0," + (height - margin.bottom) + ")");
+    .attr("transform", "translate(0," + (height - margin.bottom) + ")")
+
 
 // Create line that connects circle and X axis
 let xLine = svg.append("line")
@@ -65,6 +90,10 @@ let tooltip = d3.select("#svganchor").append("div")
     .attr("class", "tooltip")
     .style("opacity", 0);
 
+let tooltip2 = d3.select("#svganchor").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+    
 // Load and process data
 d3.csv("https://raw.githubusercontent.com/m0llyc00k/major-studio-1/main/Qualitative/examples-beeswarm/beeswarm-data-new-Images.csv").then(function (data) {
 
@@ -93,7 +122,7 @@ d3.csv("https://raw.githubusercontent.com/m0llyc00k/major-studio-1/main/Qualitat
         }));
 
 //set x axis
-           let xAxis = d3.axisBottom(xScale)
+        let xAxis = d3.axisBottom(xScale)
                 .ticks(12, ".0f");
         
 
@@ -109,14 +138,17 @@ d3.csv("https://raw.githubusercontent.com/m0llyc00k/major-studio-1/main/Qualitat
                 // Mapping of values from date/perCapita column of dataset to range of SVG chart (<margin.left, margin.right>)
                 return xScale(+d[chartState.measure]);  // This is the desired position
             }).strength(8))  // Increase velocity
-            .force("y", d3.forceY((height / 2) - margin.bottom))  // // Apply positioning force to push nodes towards center along Y axis
-            .force("collide", d3.forceCollide(10)) // Apply collision force with radius of 9 - keeps nodes centers 9 pixels apart
+            .force("y", d3.forceY((height / 1.75) - margin.bottom))  // // Apply positioning force to push nodes towards center along Y axis
+            .force("collide", d3.forceCollide(14)) // Apply collision force with radius of 9 - keeps nodes centers 9 pixels apart
             .stop();  // Stop simulation from starting automatically
 
         // Manually run simulation
         for (let i = 0; i < dataSet.length; ++i) {
             simulation.tick(5);
         }
+        
+        
+// function changeColor() {
 
         // Create ephemera circles
         let titleCircles = svg.selectAll(".title")
@@ -134,9 +166,7 @@ d3.csv("https://raw.githubusercontent.com/m0llyc00k/major-studio-1/main/Qualitat
             .attr("class", "title")
             .attr("cx", width - margin.right)
             .attr("cy", (height) - margin.bottom)
-            .attr("r", 10)
-            .attr("stroke", "#F3F3F3")
-            .attr("stroke-width", .5)
+            .attr("r", 13)
             .attr("fill", function(d){ return colors(d.typeSort)})
             .merge(titleCircles)
             .transition()
@@ -144,31 +174,65 @@ d3.csv("https://raw.githubusercontent.com/m0llyc00k/major-studio-1/main/Qualitat
             .attr("cx", function(d) { return d.x; })
             .attr("cy", function(d) { return d.y; });
 
+// }
+
+
+
+// function changeImage (){
+
+// var images = svg.selectAll(".primaryImage")
+//             .data(dataSet, function(d) { return d.primaryImage });
+
+//         images.exit()
+//             .transition()
+//             .duration(1000)
+//             .attr("x", 0)
+//             .attr("y", (height) - margin.bottom)
+//             .remove();
+
+//         images.enter()
+//             .append("image")
+//             .attr("xlink:href", function(d) { return d.primaryImage;})
+//             .attr("width", 26)
+//             .attr("height", 26)
+//             .attr("x", width - margin.right / 2)
+//             .attr("y", (height) - margin.bottom / 2)
+//             .merge(images)
+//             .transition()
+//             .duration(2000)
+//             .attr("x", function(d) { return d.x; })
+//             .attr("y", function(d) { return d.y; });
+
+// }
+
+
+
         // Show tooltip when hovering over circle (data for respective country)
         d3.selectAll(".title").on("mousemove", function(d) {
             tooltip.html(`<div id="textTooltip">
                           <strong>${d.title}</strong><br>
                           ${d.typeTrue}<br> 
                           <strong>${d.dateTrue}</strong><br>
-                          ${d.description} <br>
                           </div>
                           <div id="imageTooltip" float:right>
                           <img src="${d.primaryImage}" alt="image here">
                           </div>
                           `)
-                .style('top', d3.event.pageY - 1 + 12 + 'px')
-                .style('left', d3.event.pageX + 1 + 25 + 'px')
+                // .style('top', d3.event.pageY - 1 + 5 + 'px')
+                // .style('left', d3.event.pageX + 1 + 10 + 'px')
                 .style("opacity", 0.9)
-    
-               
-                
+                .style("left", d3.select(this).attr("cx") + "px")     
+                .style("top", d3.select(this).attr("cy") + "px");
+  
+
                 
 
             xLine.attr("x1", d3.select(this).attr("cx"))
                 .attr("y1", d3.select(this).attr("cy"))
                 .attr("y2", (height - margin.bottom))
                 .attr("x2",  d3.select(this).attr("cx"))
-                .attr("opacity", 1);
+                .attr("opacity", 1)
+
 
         }).on("mouseout", function(_) {
             tooltip.style("opacity", 0);
