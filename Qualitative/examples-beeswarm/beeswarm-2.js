@@ -29,7 +29,10 @@ chartState.legend = Legend.dateSort;
 // Colors used for circles depending on typeSort
 let colors = d3.scaleOrdinal()
     .domain(["buttons", "signs", "posters", "placards", "correspondence", "pamphlets", "fliers", "other"])
-    .range(['#936C85','#530094','#A8B1E1','#0E09F8','#8C19E7','#12107A', '#8387F5', '#A8E1D8']);
+    .range(['#379AB1','#530094','#E6A0C2','#0E09F8','#8C19E7','#12107A', '#EAD7D3', '#A8E1D8']);
+    
+    //#009392,#72aaa1,#b1c7b3,#f1eac8,#e5b9ad,#d98994,#d0587e
+    //#A16928,#bd925a,#d6bd8d,#edeac2,#b5c8b8,#79a7ac,#2887a1
 
 d3.select("#buttonsColor").style("color", colors("buttons"));
 d3.select("#signsColor").style("color", colors("signs"));
@@ -47,21 +50,21 @@ let svg = d3.select("#svganchor")
     .attr("height", height)
 
 svg.append("text")
-        .attr("x", 25)
-        .attr("y", 50)
+        .attr("x", 30)
+        .attr("y", 70)
         .attr("text-anchor", "left")
-        .style("font-size", "39px")
+        .style("font-size", "32px")
         .style("fill", "#f2f2f2")
         .style("font-family", "Zilla Slab")
         .style("font-variant", "small-caps")
-        .text("Ephemera at the Smithsonian");
+        .text("Political and Activist Ephemera at the Smithsonian");
 
 // Add subtitle to graph
 svg.append("text")
-        .attr("x", 125)
-        .attr("y", 80)
+        .attr("x", 30)
+        .attr("y", 110)
         .attr("text-anchor", "left")
-        .style("font-size", "24px")
+        .style("font-size", "34px")
         .style("fill", "#f2f2f2")
         .style("max-width", 400)
         .style("font-family", "Zilla Slab Highlight")
@@ -188,7 +191,9 @@ d3.csv("https://raw.githubusercontent.com/m0llyc00k/major-studio-1/main/Qualitat
 //             .duration(1000)
 //             .attr("x", 0)
 //             .attr("y", (height) - margin.bottom)
-//             .remove();
+//             .remove()
+            
+ 
 
 //         images.enter()
 //             .append("image")
