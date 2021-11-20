@@ -19,3 +19,5 @@ I am interested in visualizing the location and quantity of meteorites from this
 ![image](https://user-images.githubusercontent.com/86888346/133334710-286e6ba1-3b65-41cd-80ba-c05f8bdf6236.png)
 <p><b>Aircrafts at the Air and Space Museum</b></br>
 This visualization makes evident the specifications of aircrafts at the Smithsonian through a type of scatterplot. The weight, speed, and wingspan can be used to determine each aircraft’s location on the plot and upon further investigation the viewer may click an aircraft symbol to view more details. These additional details may include photos, speed, wingspan, dimensions, weight, year, make, engine, etc. This visualization may help us understand the correlation between these variables, if any. There are 113 aircrafts that fall within this category.
+
+
