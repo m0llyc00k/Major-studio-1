@@ -93,7 +93,10 @@
             border-radius: 2px;
             pointer-events: none;
             cursor: pointer;
+            
+
         }
+
 
         .axis path,
         .axis line {
@@ -114,12 +117,16 @@
             padding-top: 20px;
             max-width: 90%;
         }
+
+
+
+
     </style>
 
 </head>
 
 <body>
-    
+
 
 
     <div class="container">
@@ -180,19 +187,22 @@
                     <button id="all" class="button active">All</button>
                     <button id="Movement" class="button">By Movement</button>
                     <button id="typeSort" class="button">By Type</button>
-                    <button id="dateSort" class="button">By Year</button>
+                    <!--<button id="dateSort" class="button">By Year</button>-->
                 </div>
             </div>
             <div class="row">
-                <div class= "col" id="svgclusters"></div>
+                <div class="col" id="svgclusters"></div>
             </div>
 
         </div>
     </div>
 
-
     <script src="https://d3js.org/d3.v5.min.js"></script>
+
+    <!--<script src="https://d3js.org/d3.v5.min.js"></script>-->
     <script src="beeswarm.js"></script>
+    <script src="clusters.js"></script>
+
 
 </body>
 

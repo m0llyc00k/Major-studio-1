@@ -5,6 +5,7 @@ let width = 1120;
 let margin = ({ top: 40, right: 40, bottom: 34, left: 40 });
 let allDates = [];
 
+
 // Data structure describing chart scales
 let Scales = {
     lin: "scaleLinear",
@@ -172,23 +173,62 @@ d3.csv("https://raw.githubusercontent.com/m0llyc00k/major-studio-1/main/Qualitat
             .attr("cy", (height / 2) - margin.bottom / 2)
             .remove();
 
+
+        var defs = svg.append('defs');
+        
+        defs.append("pattern")
+        .attr("id",  "d.title" )
+        .attr("height", "100%")
+        .attr("width", "100%")
+        .attr("patternContentUnits", "objectBoundingBox")
+        .append("image")
+        .attr("height", 1)
+        .attr("width", 1)
+        .attr("preserveAspectRatio", "none")
+        .attr("xmlns:xlink", "http://www.w3.org/1999/xlink")
+        .attr("xlink:href", "+ d.primaryImage +")
+        
+        defs.selectAll(".title-pattern")
+        .data(data)
+        .enter().append("pattern")
+        .attr("class", "title-pattern")
+        .attr("id",  function(d) {
+            return d.id
+        } )
+        .attr("height", "100%")
+        .attr("width", "100%")
+        .attr("patternContentUnits", "objectBoundingBox")
+        .append("image")
+        .attr("height", 1)
+        .attr("width", 1)
+        .attr("preserveAspectRatio", "none")
+        .attr("xmlns:xlink", "http://www.w3.org/1999/xlink")
+        .attr("xlink:href", function(d) {
+            return d.primaryImage
+        })
+
+
         titleCircles.enter()
             .append("circle")
             .attr("class", "title")
             .attr("cx", width - margin.right)
             .attr("cy", (height) - margin.bottom)
             .attr("r", 13)
-            .attr("fill", function(d) { return colors(d.typeSort) })
+            .attr("stroke", function(d) { return colors(d.typeSort) })
+            .attr("stroke-width", 4)
             .merge(titleCircles)
             .transition()
             .duration(2000)
             .attr("cx", function(d) { return d.x; })
-            .attr("cy", function(d) { return d.y; });
+            .attr("cy", function(d) { return d.y; })
+            .attr("fill", function(d) {
+                return "url(#" + d.id + ")"
+            })
+
 
         // }
 
-
-
+//  })
         // function changeImage (){
 
         // var images = svg.selectAll(".primaryImage")
@@ -222,14 +262,15 @@ d3.csv("https://raw.githubusercontent.com/m0llyc00k/major-studio-1/main/Qualitat
 
         // Show tooltip when hovering over circle (data for respective country)
         d3.selectAll(".title").on("mousemove", function(d) {
-            tooltip.html(`<div id="textTooltip">
+            tooltip.html(`   <div class="container" style="max-width:100%">
+                            <div class="row"><div class="col-md-6">
                           <strong>${d.title}</strong><br>
                           ${d.typeTrue}<br> 
                           <strong>${d.dateTrue}</strong><br>
                           </div>
-                          <div id="imageTooltip" float:right>
+                          <div class="col-sm-4">
                           <img src="${d.primaryImage}" alt="image here">
-                          </div>
+                          </div></div>
                           `)
                 // .style('top', d3.event.pageY - 1 + 5 + 'px')
                 // .style('left', d3.event.pageX + 1 + 10 + 'px')
@@ -293,186 +334,3 @@ d3.csv("https://raw.githubusercontent.com/m0llyc00k/major-studio-1/main/Qualitat
 }).catch(function(error) {
     if (error) throw error;
 });
-
-
-///////////////////////////////////////////////////////clusters///////////////////////////////////////////////////////////
-// console.clear()
-var w = 1100,
-    h = 600;
-
-var radius = 10;
-var color = d3.scaleOrdinal()
-    .domain(["buttons", "signs", "posters", "placards", "correspondence", "pamphlets", "fliers", "other"])
-    .range(['#d4c874', '#ba8a30', '#db666f', '#5c86aa', '#a53d24', '#76943c', '#66988d', '#ba5f41']);
-
-var centerScale = d3.scalePoint().padding(1).range([0, w]);
-var forceStrength = 0.08;
-
-var svg2 = d3.select("body").append("svg")
-    .attr("width", w)
-    .attr("height", h)
-//   .attr("viewBox", `100 100 2000 1500`)
-
-
-var simulation = d3.forceSimulation()
-    .force("collide", d3.forceCollide(function(d) {
-        return d.r + 2
-    }).iterations(10))
-    .force("charge", d3.forceManyBody())
-    .force("y", d3.forceY().y(h / 2))
-    .force("x", d3.forceX().x(w / 2))
-
-d3.csv("beeswarm-data-new-rev_nov19.csv", function(data2) {
-
-    data2.forEach(function(d) {
-        d.r = radius;
-        d.x = w / 2;
-        d.y = h / 2;
-    })
-
-    console.table(data2);
-
-
-
-    var circles = svg.selectAll("circle")
-        .data2(data2, function(d) { return d.id; });
-
-    var circlesEnter = circles.enter().append("circle")
-        .attr("r", function(d, i) { return d.r; })
-        .attr("cx", function(d, i) { return 175 + 25 * i + 2 * i ** 5; })
-        .attr("cy", function(d, i) { return 500; })
-        .style("fill", function(d, i) { return color(d.typeSort); })
-        .style("stroke", function(d, i) { return color(d.typeSort); })
-        .style("stroke-width", 2)
-        .style("pointer-events", "all")
-        .style("padding", "none")
-        .call(d3.drag()
-            .on("start", dragstarted)
-            .on("drag", dragged)
-            .on("end", dragended));
-
-    circles = circles.merge(circlesEnter)
-
-    function ticked() {
-        //console.log("tick")
-        //console.log(data.map(function(d){ return d.x; }));
-        circles
-            .attr("cx", function(d) { return d.x; })
-            .attr("cy", function(d) { return d.y; });
-    }
-
-    simulation
-        .nodes(data2)
-        .on("tick", ticked);
-
-    function dragstarted(d, i) {
-        //console.log("dragstarted " + i)
-        if (!d3.event.active) simulation.alpha(1).restart();
-        d.fx = d.x;
-        d.fy = d.y;
-    }
-
-    function dragged(d, i) {
-        //console.log("dragged " + i)
-        d.fx = d3.event.x;
-        d.fy = d3.event.y;
-    }
-
-    function dragended(d, i) {
-        //console.log("dragended " + i)
-        if (!d3.event.active) simulation.alphaTarget(0);
-        d.fx = null;
-        d.fy = null;
-        var me = d3.select(this)
-        console.log(me.classed("selected"))
-        me.classed("selected", !me.classed("selected"))
-
-        d3.selectAll("circle")
-            .style("fill", function(d, i) { return color(d.typeSort); })
-
-        d3.selectAll("circle.selected")
-            .style("fill", "none")
-
-    }
-
-    function groupBubbles() {
-        hideTitles();
-
-        // @v4 Reset the 'x' force to draw the bubbles to the center.
-        // simulation.force('x', d3.forceX().strength(forceStrength).x(w / 4));
-        simulation.force('x', d3.forceX().strength(.05));
-
-
-
-        // @v4 We can reset the alpha value and restart the simulation
-        simulation.alpha(1).restart();
-    }
-
-    function splitBubbles(byVar) {
-
-        centerScale.domain(data2.map(function(d) { return d[byVar]; }));
-
-        if (byVar == "id") {
-            hideTitles()
-        }
-        else {
-            showTitles(byVar, centerScale);
-        }
-
-        // @v4 Reset the 'x' force to draw the bubbles to their year centers
-        simulation.force('x', d3.forceX().strength(forceStrength).x(function(d) {
-            return centerScale(d[byVar]);
-        }));
-
-        // @v4 We can reset the alpha value and restart the simulation
-        simulation.alpha(2).restart();
-    }
-
-    function hideTitles() {
-        svg.selectAll('.title').remove();
-    }
-
-    function showTitles(byVar, scale) {
-        // Another way to do this would be to create
-        // the year texts once and then just hide them.
-        var titles = svg.selectAll('.title')
-            .data(scale.domain());
-
-        titles.enter().append('text')
-            .attr('class', 'title')
-            .merge(titles)
-            .attr('x', function(d) { return scale(d); })
-            .attr('y', 60)
-            .attr('text-anchor', 'middle')
-            .text(function(d) { return d; });
-
-        titles.exit().remove()
-    }
-
-
-
-    function setupButtons() {
-        d3.selectAll('.button')
-            .on('click', function() {
-
-                // Remove active class from all buttons
-                d3.selectAll('.button').classed('active', false);
-                // Find the button just clicked
-                var button = d3.select(this);
-
-                // Set it as the active button
-                button.classed('active', true);
-
-                // Get the id of the button
-                var buttonId = button.attr('id');
-
-                console.log(buttonId)
-                // Toggle the bubble chart based on
-                // the currently clicked button.
-                splitBubbles(buttonId);
-            });
-    }
-
-    setupButtons()
-
-})
