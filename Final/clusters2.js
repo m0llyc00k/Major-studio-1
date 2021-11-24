@@ -1,9 +1,7 @@
-/* global d3 */
-
 var w = 1400,
     h = 800;
 
-var radius = 12;
+var radius = 10;
 var color = d3.scaleOrdinal()
     .domain(["buttons", "signs", "posters", "placards", "correspondence", "pamphlets", "fliers", "other"])
     .range(['#d4c874', '#ba8a30', '#db666f', '#5c86aa', '#a53d24', '#76943c', '#66988d', '#ba5f41']);
@@ -17,6 +15,7 @@ var svg2 = d3.select("#svgclusters").append("svg")
     .attr("viewBox", `0 0 1400 800`)
      .attr("preserveAspectRatio", "xMinYMin meet")
     
+
 
 
 var simulation = d3.forceSimulation()
@@ -78,13 +77,13 @@ d3.csv("beeswarm-data-new-rev_nov20.csv").then(function(data) {
 
     d3.selectAll("circle")
         .on("mouseover", handleMouseOver)
-        .on("mouseout", handleMouseOut);
+          .on("mouseout", handleMouseOut);
 
     function handleMouseOver(d, i) { // Add interactivity
 
         // Use D3 to select element, change size
         d3.select(this)
-            .attr("r", 45)
+            .attr("r", 25)
             .attr("fill", function(d) {
                 return "url(#" + d.id + ")"
             })
@@ -93,10 +92,11 @@ d3.csv("beeswarm-data-new-rev_nov20.csv").then(function(data) {
     function handleMouseOut(d, i) {
         // Use D3 to select element, change color back to normal
         d3.select(this)
-            .attr("r", 12)
-            
+            .attr("r", 13)
             tooltip.style("opacity", 0);
             xLine.attr("opacity", 0);
+
+
     };
 
     var circles = svg2.selectAll("circle")
@@ -111,8 +111,6 @@ d3.csv("beeswarm-data-new-rev_nov20.csv").then(function(data) {
         .style("stroke-width", 3)
         .style("pointer-events", "all")
         .style("padding", "none")
-        .on("mouseover", handleMouseOver)
-        .on("mouseout", handleMouseOut)
         .call(d3.drag()
             .on("start", dragstarted)
             .on("drag", dragged)
@@ -161,7 +159,7 @@ d3.csv("beeswarm-data-new-rev_nov20.csv").then(function(data) {
             .style("fill", function(d, i) { return color(d.typeSort); })
 
         d3.selectAll("circle.selected")
-                .style("fill", function(d) {
+                        .attr("fill", function(d) {
                 return "url(#" + d.id + ")"
             })
 
@@ -216,8 +214,7 @@ d3.csv("beeswarm-data-new-rev_nov20.csv").then(function(data) {
             .attr('x', function(d) { return scale(d); })
             .attr('y', 60)
             .attr('text-anchor', 'middle')
-            .text(function(d) { return d; })
-
+            .text(function(d) { return d; });
 
         titles.exit().remove()
     }

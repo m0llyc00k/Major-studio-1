@@ -1,6 +1,6 @@
 /*global d3*/
 
-let height = 800;
+let height = 850;
 let width = 1120;
 let margin = ({ top: 40, right: 40, bottom: 34, left: 40 });
 let allDates = [];
@@ -102,9 +102,6 @@ let tooltip = d3.select("#svgbeeswarm").append("div")
     .attr("class", "tooltip")
     .style("opacity", 0);
 
-let tooltip2 = d3.select("#svgbeeswarm").append("div")
-    .attr("class", "tooltip")
-    .style("opacity", 0);
 
 // Load and process data
 d3.csv("https://raw.githubusercontent.com/m0llyc00k/major-studio-1/main/Qualitative/examples-beeswarm/beeswarm-data-new-Images.csv").then(function(data) {
@@ -151,7 +148,7 @@ d3.csv("https://raw.githubusercontent.com/m0llyc00k/major-studio-1/main/Qualitat
                 return xScale(+d[chartState.measure]); // This is the desired position
             }).strength(8)) // Increase velocity
             .force("y", d3.forceY((height / 1.75) - margin.bottom)) // // Apply positioning force to push nodes towards center along Y axis
-            .force("collide", d3.forceCollide(14)) // Apply collision force with radius of 9 - keeps nodes centers 9 pixels apart
+            .force("collide", d3.forceCollide(16)) // Apply collision force with radius of 9 - keeps nodes centers 9 pixels apart
             .stop(); // Stop simulation from starting automatically
 
         // Manually run simulation
@@ -160,7 +157,6 @@ d3.csv("https://raw.githubusercontent.com/m0llyc00k/major-studio-1/main/Qualitat
         }
 
 
-        // function changeColor() {
 
         // Create ephemera circles
         let titleCircles = svg.selectAll(".title")
@@ -174,62 +170,67 @@ d3.csv("https://raw.githubusercontent.com/m0llyc00k/major-studio-1/main/Qualitat
             .remove();
 
 
+        //fill circles with images
+
         var defs = svg.append('defs');
-        
+
         defs.append("pattern")
-        .attr("id",  "d.title" )
-        .attr("height", "100%")
-        .attr("width", "100%")
-        .attr("patternContentUnits", "objectBoundingBox")
-        .append("image")
-        .attr("height", 1)
-        .attr("width", 1)
-        .attr("preserveAspectRatio", "none")
-        .attr("xmlns:xlink", "http://www.w3.org/1999/xlink")
-        .attr("xlink:href", "+ d.primaryImage +")
-        
+            .attr("id", "d.title")
+            .attr("height", "100%")
+            .attr("width", "100%")
+            .attr("patternContentUnits", "objectBoundingBox")
+            .append("image")
+            .attr("height", 1)
+            .attr("width", 1)
+            .attr("preserveAspectRatio", "none")
+            .attr("xmlns:xlink", "http://www.w3.org/1999/xlink")
+            .attr("xlink:href", "+ d.primaryImage +")
+
         defs.selectAll(".title-pattern")
-        .data(data)
-        .enter().append("pattern")
-        .attr("class", "title-pattern")
-        .attr("id",  function(d) {
-            return d.id
-        } )
-        .attr("height", "100%")
-        .attr("width", "100%")
-        .attr("patternContentUnits", "objectBoundingBox")
-        .append("image")
-        .attr("height", 1)
-        .attr("width", 1)
-        .attr("preserveAspectRatio", "none")
-        .attr("xmlns:xlink", "http://www.w3.org/1999/xlink")
-        .attr("xlink:href", function(d) {
-            return d.primaryImage
-        })
+            .data(data)
+            .enter().append("pattern")
+            .attr("class", "title-pattern")
+            .attr("id", function(d) {
+                return d.id
+            })
+            .attr("height", "100%")
+            .attr("width", "100%")
+            .attr("patternContentUnits", "objectBoundingBox")
+            .append("image")
+            .attr("height", 1)
+            .attr("width", 1)
+            .attr("preserveAspectRatio", "none")
+            .attr("xmlns:xlink", "http://www.w3.org/1999/xlink")
+            .attr("xlink:href", function(d) {
+                return d.primaryImage
+            })
+
 
 
         titleCircles.enter()
             .append("circle")
             .attr("class", "title")
-            .attr("cx", width - margin.right)
-            .attr("cy", (height) - margin.bottom)
+            .attr("cx", 0)
+            .attr("cy", (height / 2) - margin.bottom / 2)
+            // .attr("cx", width - margin.right)
+            // .attr("cy", (height) - margin.bottom)
             .attr("r", 13)
             .attr("stroke", function(d) { return colors(d.typeSort) })
             .attr("stroke-width", 4)
             .merge(titleCircles)
             .transition()
-            .duration(2000)
+            .duration(1000)
             .attr("cx", function(d) { return d.x; })
             .attr("cy", function(d) { return d.y; })
             .attr("fill", function(d) {
-                return "url(#" + d.id + ")"
+                return colors(d.typeSort)
             })
+            // .on("mouseover", handleMouseOver)
+            // .on("mouseout", handleMouseOut);
 
 
-        // }
 
-//  })
-        // function changeImage (){
+        //map just the images on the beeswarm
 
         // var images = svg.selectAll(".primaryImage")
         //             .data(dataSet, function(d) { return d.primaryImage });
@@ -256,28 +257,33 @@ d3.csv("https://raw.githubusercontent.com/m0llyc00k/major-studio-1/main/Qualitat
         //             .attr("x", function(d) { return d.x; })
         //             .attr("y", function(d) { return d.y; });
 
-        // }
+
 
 
 
         // Show tooltip when hovering over circle (data for respective country)
         d3.selectAll(".title").on("mousemove", function(d) {
-            tooltip.html(`   <div class="container" style="max-width:100%">
-                            <div class="row"><div class="col-md-6">
+            // tooltip.html(`   <div class="container" style="max-width:100%">
+            //                 <div class="row"><div class="col-md-6">
+            //               <strong>${d.title}</strong><br>
+            //               ${d.typeTrue}<br> 
+            //               <strong>${d.dateTrue}</strong><br>
+            //               </div>
+            //               <div class="col-sm-4">
+            //               <img src="${d.primaryImage}" alt="image here">
+            //               </div></div>
+            //               `)
+            tooltip.html(`<div>
                           <strong>${d.title}</strong><br>
                           ${d.typeTrue}<br> 
                           <strong>${d.dateTrue}</strong><br>
                           </div>
-                          <div class="col-sm-4">
-                          <img src="${d.primaryImage}" alt="image here">
-                          </div></div>
                           `)
-                // .style('top', d3.event.pageY - 1 + 5 + 'px')
-                // .style('left', d3.event.pageX + 1 + 10 + 'px')
+                .style('top', d3.event.pageY - 1 + 5 + 'px')
+                .style('left', d3.event.pageX + 1 + 10 + 'px')
                 .style("opacity", 0.9)
-                .style("left", d3.select(this).attr("cx") + "px")
-                .style("top", d3.select(this).attr("cy") + "px");
-
+            // .style("left", d3.select(this).attr("cx") + "px")
+            // .style("top", d3.select(this).attr("cy") + "px");
 
 
 
@@ -288,12 +294,41 @@ d3.csv("https://raw.githubusercontent.com/m0llyc00k/major-studio-1/main/Qualitat
                 .attr("opacity", 1)
 
 
+
+
         }).on("mouseout", function(_) {
             tooltip.style("opacity", 0);
             xLine.attr("opacity", 0);
         });
 
+
     }
+
+
+
+
+
+    function handleMouseOver(d, i) { // Add interactivity
+
+        // Use D3 to select element, change size
+        d3.select(this)
+            .attr("r", 25)
+        .attr("fill", function(d) {
+            return "url(#" + d.id + ")"
+        })
+    };
+
+    function handleMouseOut(d, i) {
+        // Use D3 to select element, change color back to normal
+        d3.select(this)
+            .attr("r", 13)
+        tooltip.style("opacity", 0);
+        xLine.attr("opacity", 0);
+
+
+    };
+
+
 
     // Filter data based on which checkboxes are ticked
     function filter() {
@@ -329,8 +364,15 @@ d3.csv("https://raw.githubusercontent.com/m0llyc00k/major-studio-1/main/Qualitat
 
         dataSet = newData;
         redraw();
+        
+    d3.selectAll("circle")
+        .on("mouseover", handleMouseOver)
+        .on("mouseout", handleMouseOut);
     }
+    
+
 
 }).catch(function(error) {
     if (error) throw error;
 });
+
