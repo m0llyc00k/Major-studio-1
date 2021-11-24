@@ -101,6 +101,32 @@ function addObject(objectData) {
   if(objectData.content.freetext.notes) {
     currentDescription = objectData.content.freetext.notes[0]["content"];
   }
+  
+  let text=[];
+  
+  let currentFreetext = "";
+  if(objectData.content.freetext) {
+    currentFreetext = objectData.content.freetext.setName;
+  }
+  
+  
+  
+  
+  
+//   let currentMovement = [];
+  
+//     for(let i = 0;i<currentFreetext.length;i++){
+      
+//     if ("label" === "Movement") {
+//       currentMovement.push("hi")
+//     } else {
+//       currentMovement.push("")
+//     }
+  
+// }
+
+  
+
 
 
 
@@ -133,13 +159,14 @@ function addObject(objectData) {
   // }
   myArray.push({
     id: objectData.id,
-    title: objectData.title,
-    type: currentType,
-    place: currentPlace,
-    date: currentDate,
-    link: objectData.content.descriptiveNonRepeating.record_link,
-    description: currentDescription,
-    newDate: currentNewDate
+    // title: objectData.title,
+    // type: currentType,
+    // place: currentPlace,
+    // date: currentDate,
+    // link: objectData.content.descriptiveNonRepeating.record_link,
+    // description: currentDescription,
+    // newDate: currentNewDate,
+    freetext: currentFreetext
     
 
   })
