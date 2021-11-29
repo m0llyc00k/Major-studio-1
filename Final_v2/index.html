@@ -1,0 +1,243 @@
+<!--https://moderncss.dev/pure-css-custom-checkbox-style/-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Ephemera at the Smithsonian</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300&family=Spartan:wght@100;400&family=Zilla+Slab:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab+Highlight:wght@400;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda&display=swap" rel="stylesheet">
+
+
+    <style type="text/css">
+        body {
+            background-color: #343334;
+            /*background-color: #161616;*/
+            /*zoom: reset;*/
+        }
+
+        .button {
+            min-width: 130px;
+            padding: 4px 5px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 13px;
+            border: 1px solid #e0e0e0;
+            text-decoration: none;
+        }
+
+        .button.active {
+            background: #000;
+            color: #fff;
+        }
+
+        #checkboxes>* {
+            font: Roboto;
+            font-weight: 400;
+            color: #b9b6af;
+            padding: 5px;
+            padding-left: 20px;
+            display: block;
+
+        }
+
+        .col-sm-2 {
+            background-color: #343334;
+            /*padding-left: 20px;*/
+            /*border-radius: 25px;*/
+            padding-top: 200px;
+        }
+
+        svg {
+            background-color: #343334;
+        }
+
+        svganchor {
+            padding: 100px;
+        }
+
+        .cells path {
+            fill: none;
+            pointer-events: all;
+        }
+
+        div.tooltip {
+            position: fixed;
+            text-align: left;
+            color: #efefef;
+            white-space: normal;
+            padding: 8px;
+            font-size: 14px;
+            /*background: rgb(96, 125, 139);*/
+            background: #5e626b;
+            border: 1px solid rgb(96, 125, 139);
+            border-radius: 2px;
+            pointer-events: none;
+            cursor: pointer;
+        }
+
+
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: rgb(96, 125, 139);
+            shape-rendering: optimizeSpeed;
+        }
+
+        .axis text {
+            font: 15px sans-serif;
+            color: #a19d94;
+
+        }
+
+        /*.typeSort {}*/
+
+        .container {
+            padding-top: 20px;
+            max-width: 90%;
+        }
+
+
+        input[type="checkbox"] {
+            appearance: none;
+            background-color: #a19d94;
+            margin: 0;
+            font: inherit;
+            color: #a19d94;
+            width: 1.15em;
+            height: 1.15em;
+            border: 0.15em solid currentColor;
+            border-radius: 1em;
+            transform: translateY(-0.075em);
+            place-content: center;
+            box-shadow: inset .1em .1em
+        }
+
+
+        /*designate color fills*/
+
+        input[value="signs"]:checked {
+            background-color: #ba8a30;
+        }
+
+        input[value="posters"]:checked {
+            background-color: #db666f;
+        }
+
+        input[value="placards"]:checked {
+            background-color: #5c86aa;
+        }
+
+        input[value="correspondence"]:checked {
+            background-color: #a53d24;
+        }
+
+        input[value="pamphlets"]:checked {
+            background-color: #76943c;
+        }
+
+        input[value="fliers"]:checked {
+            background-color: #66988d;
+        }
+
+        input[value="buttons"]:checked {
+            background-color: #d4c874;
+        }
+
+        input[value="other"]:checked {
+            background-color: #ba5f41;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-2" id="checkboxes">
+                <!--<span style="position:relative; top: 5px; font-size: 16px; padding:20px;">Ephemera Type:</span>-->
+                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+                    <!--<span class="checkmark" id="signsColor" style="font-size: 24px; color: #ba8a30;">&#9679;&nbsp;</span>-->
+                    <input type="checkbox" value="signs"  class="mdl-checkbox__input typeSort" checked="">    Signs
+                </label>
+                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+                    <!--<span class="mdl-checkbox__label" id="postersColor" style="font-size: 24px; color: #db666f;">&#9679;&nbsp;</span>-->
+                    <input type="checkbox" value="posters" class="mdl-checkbox__input typeSort" checked="">    Posters
+                </label>
+                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+                    <!--<span class="mdl-checkbox__label" id="placardsColor" style="font-size: 24px; color: #5c86aa;">&#9679;&nbsp;</span>-->
+                    <input type="checkbox" value="placards" class="mdl-checkbox__input typeSort" checked="">    Placards
+                </label>
+                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+                     <!--<span class="mdl-checkbox__label" id="correspondenceColor" style="font-size: 24px; color: #a53d24;">&#9679;&nbsp;</span>-->
+                    <input type="checkbox" value="correspondence" class="mdl-checkbox__input typeSort" checked="">    Correspondence
+                </label>
+                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+                     <!--<span class="mdl-checkbox__label" id="pamphletsColor" style="font-size: 24px; color: #76943c;">&#9679;&nbsp;</span>-->
+                    <input type="checkbox" value="pamphlets" class="mdl-checkbox__input typeSort" checked="">    Pamphlets
+                </label>
+                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+                     <!--<span class="mdl-checkbox__label" id="fliersColor" style="font-size: 24px; color: #66988d;">&#9679;&nbsp;</span>-->
+                    <input type="checkbox" value="fliers" class="mdl-checkbox__input typeSort" checked="">    Fliers
+                </label>
+                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+                    <!--<span class="mdl-checkbox__label" id="buttonsColor" style="font-size: 24px; color: #d4c874;">&#9679;&nbsp;</span>-->
+                    <input type="checkbox" value="buttons" class="mdl-checkbox__input typeSort" checked="">  Buttons
+                </label>
+                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+                    <!--<span class="mdl-checkbox__label" id="otherColor" style="font-size: 24px; color: #ba5f41;">&#9679;&nbsp;</span>-->
+                    <input type="checkbox" value="other" class="mdl-checkbox__input typeSort" checked="">    Other
+                </label>
+
+                <div class="col" id="toolbar">
+                    <button id="getImage" onclick="changeFillImage()">Get image</button>
+                    <button id="getColor" onclick="changeFillColor()">Get color</button>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-10" id="svgbeeswarm"></div>
+            <div class="row">
+                <div class="col" id="toolbar">
+                    <button id="all" class="button active">All</button>
+                    <button id="Movement" class="button">By Movement</button>
+                    <button id="typeSort" class="button">By Type</button>
+            <button id="dateSort" class="button">By Year</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col" id="svgclusters"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
+    <!--<script src="https://d3js.org/d3.v5.min.js"></script>-->
+    <script src="beeswarm.js"></script>
+    <script src="clusters.js"></script>
+
+
+</body>
+
+</html>
