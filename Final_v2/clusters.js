@@ -146,8 +146,6 @@ d3.csv("beeswarm-data-new-rev_nov20.csv").then(function(data) {
     }
 
 
-
-
     function dragended(d, i) {
         //console.log("dragended " + i)
         if (!d3.event.active) simulation.alphaTarget(0);

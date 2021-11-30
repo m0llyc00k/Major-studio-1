@@ -31,16 +31,8 @@ chartState.legend = Legend.dateSort;
 // Colors used for circles depending on typeSort
 let colors = d3.scaleOrdinal()
     .domain(["buttons", "signs", "posters", "placards", "correspondence", "pamphlets", "fliers", "other"])
-    //vibrant
-    //.range(['#ff7eb6', '#8a3ffc', '#fa4d56', '#d2a106', '#d4bbff', '#08bdba', '#ba4e00', '#33b1ff']);
-    //dark-antique
-    // .range(['#9ab6aa', '#d4c874', '#919f5e', '#825264', '#db666f', '#76943c', '#66988d', '#ba5f41']);
     .range(['#d4c874', '#ba8a30', '#db666f', '#5c86aa', '#a53d24', '#76943c', '#66988d', '#ba5f41']);
 
-
-
-//#009392,#72aaa1,#b1c7b3,#f1eac8,#e5b9ad,#d98994,#d0587e
-//#A16928,#bd925a,#d6bd8d,#edeac2,#b5c8b8,#79a7ac,#2887a1
 
 d3.select("#buttonsColor").style("color", colors("buttons"));
 d3.select("#signsColor").style("color", colors("signs"));
@@ -110,8 +102,6 @@ d3.csv("https://raw.githubusercontent.com/m0llyc00k/major-studio-1/main/Qualitat
 
     redraw();
 
-
-
     // Trigger filter function whenever checkbox is ticked/unticked
     d3.selectAll("input").on("change", filter);
 
@@ -159,74 +149,34 @@ d3.csv("https://raw.githubusercontent.com/m0llyc00k/major-studio-1/main/Qualitat
 
 
         // Create ephemera circles
-        let titleCircles = svg.selectAll(".title")
-            .data(dataSet, function(d) { return d.title });
+        // let titleCircles = svg.selectAll(".title")
+        //     .data(dataSet, function(d) { return d.title });
 
-        titleCircles.exit()
-            .transition()
-            .duration(1000)
-            .attr("cx", 0)
-            .attr("cy", (height / 2) - margin.bottom / 2)
-            .remove();
+        // titleCircles.exit()
+        //     .transition()
+        //     .duration(1000)
+        //     .attr("cx", 0)
+        //     .attr("cy", (height / 2) - margin.bottom / 2)
+        //     .remove();
 
-        function changeFillImage() {
-            d3.selectAll("circle")
-                .transition()
-                .duration(2000)
-                .attr("fill", function(d) {
-                    return "url(#" + d.id + ")"
-                })
-        }
-        
-            function changeFillColor() {
-            d3.selectAll("circle")
-                .transition()
-                .duration(2000)
-                    .attr("fill", function(d) {
-                        return colors(d.typeSort)
-                    })
-        }
+        // function changeFillImage() {
+        //     d3.selectAll("circle")
+        //         .transition()
+        //         .duration(2000)
+        //         .attr("fill", function(d) {
+        //             return "url(#" + d.id + ")"
+        //         })
+        // }
 
-        // let circleColor = 
-        //             titleCircles
-        //             .enter()
-        //             .append("circle")
-        //             .attr("class", "title")
-        //             .merge(titleCircles)
-        //             .attr("cx", 0)
-        //             .attr("cy", (height / 2) - margin.bottom / 2)
-        //             // .attr("cx", width - margin.right)
-        //             // .attr("cy", (height) - margin.bottom)
-        //             .attr("r", 13)
-        //             .attr("stroke", function(d) { return colors(d.typeSort) })
-        //             .attr("stroke-width", 4)
-        //             .transition()
-        //             .duration(2000)
-        //             .attr("cx", function(d) { return d.x; })
-        //             .attr("cy", function(d) { return d.y; })
+        //     function changeFillColor() {
+        //     d3.selectAll("circle")
+        //         .transition()
+        //         .duration(2000)
         //             .attr("fill", function(d) {
         //                 return colors(d.typeSort)
         //             })
+        // }
 
-        //     let circleImage = 
-        //             titleCircles
-        //             .append("circle")
-        //             .attr("class", "title")
-        //             .attr("cx", 0)
-        //             .attr("cy", (height / 2) - margin.bottom / 2)
-        //             // .attr("cx", width - margin.right)
-        //             // .attr("cy", (height) - margin.bottom)
-        //             .attr("r", 13)
-        //             .attr("stroke", function(d) { return colors(d.typeSort) })
-        //             .attr("stroke-width", 4)
-        //             .merge(titleCircles)
-        //             .transition()
-        //             .duration(2000)
-        //             .attr("cx", function(d) { return d.x; })
-        //             .attr("cy", function(d) { return d.y; })
-        //             .attr("fill", function(d) {
-        //                 return "url(#" + d.id + ")"
-        //             })
 
 
 
@@ -266,6 +216,15 @@ d3.csv("https://raw.githubusercontent.com/m0llyc00k/major-studio-1/main/Qualitat
             })
 
 
+        let titleCircles = svg.selectAll(".title")
+            .data(dataSet, function(d) { return d.title });
+
+        titleCircles.exit()
+            .transition()
+            .duration(1000)
+            .attr("cx", 0)
+            .attr("cy", (height / 2) - margin.bottom / 2)
+            .remove();
 
         titleCircles.enter()
             .append("circle")
@@ -275,6 +234,8 @@ d3.csv("https://raw.githubusercontent.com/m0llyc00k/major-studio-1/main/Qualitat
             // .attr("cx", width - margin.right)
             // .attr("cy", (height) - margin.bottom)
             .attr("r", 13)
+            .on("mouseover", handleMouseOver)
+            .on("mouseout", handleMouseOut)
             .attr("stroke", function(d) { return colors(d.typeSort) })
             .attr("stroke-width", 4)
             .merge(titleCircles)
@@ -284,39 +245,50 @@ d3.csv("https://raw.githubusercontent.com/m0llyc00k/major-studio-1/main/Qualitat
             .attr("cy", function(d) { return d.y; })
             .attr("fill", function(d) {
                 return "url(#" + d.id + ")";
-            });
+            })
+            .attr('data-toggle', 'modal')
+            .attr('data-target', '#exampleModal')
+            .attr('data-id', function(d) {
+                return d.id
+            })
+            .attr('data-image', function(d) {
+                return d.primaryImage
+            })
+            .attr('data-title', function(d) {
+                return d.title
+            })
+            .attr('data-descript', function(d) {
+                return d.description1
+            })
+            .attr('src', d => {
+            // all our images are in the "images"
+            // folder which we will need to 
+            // add to our filename first
+            return './downloads/' + d.filename1
+             });
 
-        // .on("mouseover", handleMouseOver)
-        // .on("mouseout", handleMouseOut);
+
+
+        $('#exampleModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = button.data('id') // Extract info from data-* attributes
+            var imageModal = button.data('primaryImage')
+            var titleModal = button.data('title')
+            var descriptModal = button.data('description')
 
 
 
-        //map just the images on the beeswarm
-
-        // var images = svg.selectAll(".primaryImage")
-        //             .data(dataSet, function(d) { return d.primaryImage });
-
-        //         images.exit()
-        //             .transition()
-        //             .duration(1000)
-        //             .attr("x", 0)
-        //             .attr("y", (height) - margin.bottom)
-        //             .remove()
+            console.log(recipient)
+            //   If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            //   Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('.modal-title').text(titleModal)
+            modal.find('.col-md-6').prepend('<img src="primaryImage" alt="image here">')
+            modal.find('#descriptionHere').text(descriptModal)
+        })
 
 
 
-        //         images.enter()
-        //             .append("image")
-        //             .attr("xlink:href", function(d) { return d.primaryImage;})
-        //             .attr("width", 26)
-        //             .attr("height", 26)
-        //             .attr("x", width - margin.right / 2)
-        //             .attr("y", (height) - margin.bottom / 2)
-        //             .merge(images)
-        //             .transition()
-        //             .duration(2000)
-        //             .attr("x", function(d) { return d.x; })
-        //             .attr("y", function(d) { return d.y; });
 
 
 
@@ -371,9 +343,8 @@ d3.csv("https://raw.githubusercontent.com/m0llyc00k/major-studio-1/main/Qualitat
         // Use D3 to select element, change size
         d3.select(this)
             .attr("r", 25)
-            .attr("fill", function(d) {
-                return "url(#" + d.id + ")"
-            })
+        tooltip.style("opacity", 1);
+
     };
 
     function handleMouseOut(d, i) {
