@@ -27,7 +27,7 @@ var simulation = d3.forceSimulation()
     .force("y", d3.forceY().y(h / 2))
     .force("x", d3.forceX().x(w / 2))
 
-d3.csv("beeswarm-data-new-rev_nov20.csv").then(function(data) {
+d3.csv("./beeswarm-data-new-rev_nov20.csv").then(function(data) {
 
     data.forEach(function(d) {
         d.r = radius;
@@ -195,13 +195,13 @@ d3.csv("beeswarm-data-new-rev_nov20.csv").then(function(data) {
         }));
 
         // @v4 We can reset the alpha value and restart the simulation
-        simulation.alpha(2).restart();
+        simulation.alpha(1.2).restart();
     }
 
     function hideTitles() {
         svg2.selectAll('.title').remove();
     }
-
+// NMAAHC-2B97AEBC39EE2_5001.jpg	
     function showTitles(byVar, scale) {
         // Another way to do this would be to create
         // the year texts once and then just hide them.

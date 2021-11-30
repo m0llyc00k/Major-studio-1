@@ -53,10 +53,12 @@ svg.append("text")
     .attr("x", 0)
     .attr("y", 70)
     .attr("text-anchor", "left")
-    .style("font-size", "32px")
+    .style("font-size", "30px")
     .style("fill", "#b9b6af")
     .style("font-family", "Zilla Slab")
-    .style("font-variant", "small-caps")
+    // .style("font-variant", "small-caps")
+    // .style("font-weight", 500)
+        // .style("font-family", "Zilla Slab Highlight")
     .style("font-weight", 500)
     .text("Political and Activist Ephemera at the Smithsonian");
 
@@ -96,7 +98,7 @@ let tooltip = d3.select("#svgbeeswarm").append("div")
 
 
 // Load and process data
-d3.csv("https://raw.githubusercontent.com/m0llyc00k/major-studio-1/main/Qualitative/examples-beeswarm/beeswarm-data-new-Images.csv").then(function(data) {
+d3.csv("./beeswarm-data-new-rev_nov20.csv").then(function(data) {
 
     let dataSet = data;
 
@@ -215,6 +217,8 @@ d3.csv("https://raw.githubusercontent.com/m0llyc00k/major-studio-1/main/Qualitat
                 return d.primaryImage
             })
 
+//create circles
+
 
         let titleCircles = svg.selectAll(".title")
             .data(dataSet, function(d) { return d.title });
@@ -246,45 +250,61 @@ d3.csv("https://raw.githubusercontent.com/m0llyc00k/major-studio-1/main/Qualitat
             .attr("fill", function(d) {
                 return "url(#" + d.id + ")";
             })
+            //modal attributes
             .attr('data-toggle', 'modal')
             .attr('data-target', '#exampleModal')
             .attr('data-id', function(d) {
                 return d.id
             })
-            .attr('data-image', function(d) {
-                return d.primaryImage
-            })
             .attr('data-title', function(d) {
                 return d.title
             })
-            .attr('data-descript', function(d) {
+            .attr('data-typeTrue', function(d) {
+                return d.typeTrue
+            })
+            .attr('data-description1', function(d) {
                 return d.description1
             })
-            .attr('src', d => {
+            .attr('data-dateTrue', function(d) {
+                return d.dateTrue
+            })
+            .attr('data-filename1', d => {
             // all our images are in the "images"
             // folder which we will need to 
             // add to our filename first
             return './downloads/' + d.filename1
-             });
+            // return d.primaryImage
+            // return d.primaryImage
+             })
+
+
 
 
 
         $('#exampleModal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
             var recipient = button.data('id') // Extract info from data-* attributes
-            var imageModal = button.data('primaryImage')
+            var img = button.data('filename1')
             var titleModal = button.data('title')
-            var descriptModal = button.data('description')
+            var descriptModal = button.data('description1')
+            var yearModal = button.data('dateTrue')
+            var typeModal = button.data('typeTrue')
 
+
+
+           
 
 
             console.log(recipient)
             //   If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
             //   Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
             var modal = $(this)
-            modal.find('.modal-title').text(titleModal)
-            modal.find('.col-md-6').prepend('<img src="primaryImage" alt="image here">')
-            modal.find('#descriptionHere').text(descriptModal)
+            modal.find('.modal-title').html(titleModal)
+            modal.find('.col-md-5').html('<img src= "' + img + '"></img>')
+            // modal.find('.modal-year').text(yearModal)
+            // modal.find('.modal-type').text(typeModal)
+            modal.find('.col-md-6').html('<strong>' + yearModal + '</strong>' + '<br>' + typeModal + '<br>' + descriptModal)
+            
         })
 
 
@@ -342,7 +362,7 @@ d3.csv("https://raw.githubusercontent.com/m0llyc00k/major-studio-1/main/Qualitat
 
         // Use D3 to select element, change size
         d3.select(this)
-            .attr("r", 25)
+            .attr("r", 45)
         tooltip.style("opacity", 1);
 
     };
@@ -354,9 +374,6 @@ d3.csv("https://raw.githubusercontent.com/m0llyc00k/major-studio-1/main/Qualitat
         tooltip.style("opacity", 0);
         xLine.attr("opacity", 0);
     };
-
-
-
 
 
 

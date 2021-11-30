@@ -166,6 +166,17 @@
             background-color: #ba5f41;
         }
         
+        .modal-dialog {
+              max-height: calc(200vh - 120px);
+  /*overflow: scroll;*/
+          /*height: 45%; */
+          /*width: 60%;*/
+        }
+        .modal-content {
+          height: 100%; 
+        }
+        
+
     </style>
 
 </head>
@@ -252,7 +263,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h6 class="modal-title" id="exampleModalLabel"></h6>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -260,13 +271,14 @@
       <div class="modal-body">
          <div class="container-fluid">
     <div class="row">
-      <div class="col-md-6"></div>
-      <div class="col-md-4 ml-auto" id="descriptionHere"></div>
+      <div class="col-md-5 ml-auto" id="imagemodal"></div>
+      <div class="col-md-6 ml-auto" id="descriptionHere">
+    </div>
     </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
+      <!--<div class="modal-footer">-->
+      <!--  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+      <!--</div>-->
     </div>
   </div>
 </div>
