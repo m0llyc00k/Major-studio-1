@@ -58,7 +58,7 @@ svg.append("text")
     .style("font-family", "Zilla Slab")
     // .style("font-variant", "small-caps")
     // .style("font-weight", 500)
-        // .style("font-family", "Zilla Slab Highlight")
+    // .style("font-family", "Zilla Slab Highlight")
     .style("font-weight", 500)
     .text("Political and Activist Ephemera at the Smithsonian");
 
@@ -73,6 +73,8 @@ svg.append("text")
     .style("font-family", "Zilla Slab Highlight")
     .style("font-weight", 600)
     .text("Temporary Objects with Permanent Impact");
+
+
 
 
 
@@ -148,42 +150,7 @@ d3.csv("./beeswarm-data-new-rev_nov20.csv").then(function(data) {
             simulation.tick(5);
         }
 
-
-
-        // Create ephemera circles
-        // let titleCircles = svg.selectAll(".title")
-        //     .data(dataSet, function(d) { return d.title });
-
-        // titleCircles.exit()
-        //     .transition()
-        //     .duration(1000)
-        //     .attr("cx", 0)
-        //     .attr("cy", (height / 2) - margin.bottom / 2)
-        //     .remove();
-
-        // function changeFillImage() {
-        //     d3.selectAll("circle")
-        //         .transition()
-        //         .duration(2000)
-        //         .attr("fill", function(d) {
-        //             return "url(#" + d.id + ")"
-        //         })
-        // }
-
-        //     function changeFillColor() {
-        //     d3.selectAll("circle")
-        //         .transition()
-        //         .duration(2000)
-        //             .attr("fill", function(d) {
-        //                 return colors(d.typeSort)
-        //             })
-        // }
-
-
-
-
         //fill circles with images
-
         var defs = svg.append('defs');
 
         defs.append("pattern")
@@ -217,7 +184,7 @@ d3.csv("./beeswarm-data-new-rev_nov20.csv").then(function(data) {
                 return d.primaryImage
             })
 
-//create circles
+        //create circles
 
 
         let titleCircles = svg.selectAll(".title")
@@ -238,18 +205,20 @@ d3.csv("./beeswarm-data-new-rev_nov20.csv").then(function(data) {
             // .attr("cx", width - margin.right)
             // .attr("cy", (height) - margin.bottom)
             .attr("r", 13)
-            .on("mouseover", handleMouseOver)
-            .on("mouseout", handleMouseOut)
             .attr("stroke", function(d) { return colors(d.typeSort) })
             .attr("stroke-width", 4)
+            .on("mouseout", handleMouseOut)
+            .on("mouseover", handleMouseOver)
+            //     .on("mouseover", function(){
+            // d3.select(this).raise()
+            //     })
+            .on("click", clicked)
             .merge(titleCircles)
             .transition()
             .duration(1000)
             .attr("cx", function(d) { return d.x; })
             .attr("cy", function(d) { return d.y; })
-            .attr("fill", function(d) {
-                return "url(#" + d.id + ")";
-            })
+            .attr("fill", function(d, i) { return colors(d.typeSort); })
             //modal attributes
             .attr('data-toggle', 'modal')
             .attr('data-target', '#exampleModal')
@@ -269,111 +238,105 @@ d3.csv("./beeswarm-data-new-rev_nov20.csv").then(function(data) {
                 return d.dateTrue
             })
             .attr('data-filename1', d => {
-            // all our images are in the "images"
-            // folder which we will need to 
-            // add to our filename first
-            return './downloads/' + d.filename1
-            // return d.primaryImage
-            // return d.primaryImage
-             })
+                // all our images are in the "images"
+                // folder which we will need to 
+                // add to our filename first
+                return './downloads/' + d.filename1
+                // return d.primaryImage
+                // return d.primaryImage
+            })
+
+        function handleMouseOver(d, i) { // Add interactivity
+            // Use D3 to select element, change size
+            d3.select(this)
+                .attr("r", 50)
+                .attr("fill", function(d) {
+                    return "url(#" + d.id + ")"
+                })
+
+            d3.select(this).raise()
+            tooltip.style("opacity", 1)
+        };
 
 
+        function handleMouseOut(d, i) {
+            // Use D3 to select element, change color back to normal
+            d3.select(this)
+                .attr("r", 13)
+                .attr("fill", function(d, i) { return colors(d.typeSort); })
+            tooltip.style("opacity", 0);
+            xLine.attr("opacity", 0);
+        };
 
+        function clicked(d) {
 
+            var me = d3.select(this)
+            console.log(me.classed("selected"))
+            me.classed("selected", !me.classed("selected"))
 
+            // d3.selectAll("circle")
+            //     .style("fill", function(d, i) { return colors(d.typeSort); })
+
+            d3.selectAll("circle.selected")
+                .style("fill", function(d) {
+                    return "url(#" + d.id + ")"
+                })
+
+            svg.selectAll(".title")
+                .on("mouseover", handleMouseOver)
+                .on("mouseout", handleMouseOut)
+        }
+
+/////////// MODAL /////////////////////
         $('#exampleModal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
             var recipient = button.data('id') // Extract info from data-* attributes
-            var img = button.data('filename1')
+            var imge = button.data('filename1')
             var titleModal = button.data('title')
             var descriptModal = button.data('description1')
             var yearModal = button.data('dateTrue')
             var typeModal = button.data('typeTrue')
 
-
-
-           
-
-
-            console.log(recipient)
             //   If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
             //   Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
             var modal = $(this)
             modal.find('.modal-title').html(titleModal)
-            modal.find('.col-md-5').html('<img src= "' + img + '"></img>')
+            // modal.find('.col-md-5').html('<img id="image2" src= "' + imge + '"></img>')
+            modal.find('img').attr("src", imge)
             // modal.find('.modal-year').text(yearModal)
             // modal.find('.modal-type').text(typeModal)
             modal.find('.col-md-6').html('<strong>' + yearModal + '</strong>' + '<br>' + typeModal + '<br>' + descriptModal)
-            
+
         })
-
-
-
-
-
-
-
-
-        // Show tooltip when hovering over circle (data for respective country)
-        d3.selectAll(".title").on("mousemove", function(d) {
-            // tooltip.html(`   <div class="container" style="max-width:100%">
-            //                 <div class="row"><div class="col-md-6">
-            //               <strong>${d.title}</strong><br>
-            //               ${d.typeTrue}<br> 
-            //               <strong>${d.dateTrue}</strong><br>
-            //               </div>
-            //               <div class="col-sm-4">
-            //               <img src="${d.primaryImage}" alt="image here">
-            //               </div></div>
-            //               `)
-            tooltip.html(`<div>
-                          <strong>${d.title}</strong><br>
-                          ${d.typeTrue}<br> 
-                          <strong>${d.dateTrue}</strong><br>
-                          </div>
-                          `)
-                .style('top', d3.event.pageY - 1 + 5 + 'px')
-                .style('left', d3.event.pageX + 1 + 10 + 'px')
-                .style("opacity", 0.9)
-            // .style("left", d3.select(this).attr("cx") + "px")
-            // .style("top", d3.select(this).attr("cy") + "px");
-
-
-
-            xLine.attr("x1", d3.select(this).attr("cx"))
-                .attr("y1", d3.select(this).attr("cy"))
-                .attr("y2", (height - margin.bottom))
-                .attr("x2", d3.select(this).attr("cx"))
-                .attr("opacity", 1)
-
-
-
-
-        }).on("mouseout", function(_) {
-            tooltip.style("opacity", 0);
-            xLine.attr("opacity", 0);
-        });
 
 
     }
 
 
-    function handleMouseOver(d, i) { // Add interactivity
+    // Show tooltip when hovering over circle
+    d3.selectAll(".title").on("mousemove", function(d) {
+        tooltip.html(`<div>
+                          <strong>${d.title}</strong><br>
+                          ${d.typeTrue}<br> 
+                          <strong>${d.dateTrue}</strong><br>
+                          </div>
+                          `)
+            .style('top', d3.event.pageY - 1 + 5 + 'px')
+            .style('left', d3.event.pageX + 1 + 10 + 'px')
+            .style("opacity", 0.9)
+        // .style("left", d3.select(this).attr("cx") + "px")
+        // .style("top", d3.select(this).attr("cy") + "px");
 
-        // Use D3 to select element, change size
-        d3.select(this)
-            .attr("r", 45)
-        tooltip.style("opacity", 1);
+        xLine.attr("x1", d3.select(this).attr("cx"))
+            .attr("y1", d3.select(this).attr("cy"))
+            .attr("y2", (height - margin.bottom))
+            .attr("x2", d3.select(this).attr("cx"))
+            .attr("opacity", 1)
 
-    };
-
-    function handleMouseOut(d, i) {
-        // Use D3 to select element, change color back to normal
-        d3.select(this)
-            .attr("r", 13)
+    }).on("mouseout", function(_) {
         tooltip.style("opacity", 0);
         xLine.attr("opacity", 0);
-    };
+    });
 
 
 
@@ -413,13 +376,77 @@ d3.csv("./beeswarm-data-new-rev_nov20.csv").then(function(data) {
         dataSet = newData;
         redraw();
 
-        d3.selectAll("circle")
-            .on("mouseover", handleMouseOver)
-            .on("mouseout", handleMouseOut);
     }
 
 
+    ///magnifying glass// insert if statement here?
+    function magnify(imgID, zoom) {
+        var img, glass, w, h, bw;
+        img = document.getElementById(imgID);
+        console.log(img)
+        /*create magnifier glass:*/
+        glass = document.createElement("DIV");
+        glass.setAttribute("class", "img-magnifier-glass");
+
+        /*insert magnifier glass:*/
+
+        img.parentElement.insertBefore(glass, img);
+        /*set background properties for the magnifier glass:*/
+        glass.style.backgroundImage = "url('" + img.src + "')";
+        glass.style.backgroundRepeat = "no-repeat";
+        glass.style.backgroundSize = (img.width * zoom) + "px " + (img.height * zoom) + "px";
+        bw = 3;
+        w = glass.offsetWidth / 2;
+        h = glass.offsetHeight / 2;
+        /*execute a function when someone moves the magnifier glass over the image:*/
+        glass.addEventListener("mousemove", moveMagnifier);
+        img.addEventListener("mousemove", moveMagnifier);
+        /*and also for touch screens:*/
+        glass.addEventListener("touchmove", moveMagnifier);
+        img.addEventListener("touchmove", moveMagnifier);
+
+
+        function moveMagnifier(e) {
+            var pos, x, y;
+            /*prevent any other actions that may occur when moving over the image*/
+            e.preventDefault();
+            /*get the cursor's x and y positions:*/
+            pos = getCursorPos(e);
+            x = pos.x;
+            y = pos.y;
+            /*prevent the magnifier glass from being positioned outside the image:*/
+            if (x > img.width - (w / zoom)) { x = img.width - (w / zoom); }
+            if (x < w / zoom) { x = w / zoom; }
+            if (y > img.height - (h / zoom)) { y = img.height - (h / zoom); }
+            if (y < h / zoom) { y = h / zoom; }
+            /*set the position of the magnifier glass:*/
+            glass.style.left = (x - w) + "px";
+            glass.style.top = (y - h) + "px";
+            /*display what the magnifier glass "sees":*/
+            glass.style.backgroundPosition = "-" + ((x * zoom) - w + bw) + "px -" + ((y * zoom) - h + bw) + "px";
+        }
+
+
+        function getCursorPos(e) {
+            var a, x = 0,
+                y = 0;
+            e = e || window.event;
+            /*get the x and y positions of the image:*/
+            a = img.getBoundingClientRect();
+            /*calculate the cursor's x and y coordinates, relative to the image:*/
+            x = e.pageX - a.left;
+            y = e.pageY - a.top;
+            /*consider any page scrolling:*/
+            x = x - window.pageXOffset;
+            y = y - window.pageYOffset;
+            return { x: x, y: y };
+        }
+    }
+
+
+    // magnify("imageMagnify", 3);
 
 }).catch(function(error) {
     if (error) throw error;
 });
+
