@@ -34,7 +34,7 @@
 
 
     <div class="container">
-                <!--modal content-->
+        <!--modal content-->
         <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
@@ -50,7 +50,11 @@
                                 <div class="col-md-5 ml-auto" id="imagemodal">
                                     <img id="imageMagnify" src "" width="" height=""></img>
                                 </div>
-                                <div class="col-md-7 ml-auto"><h3 id="dateHere"></h3><h4 id="typeHere"></h4><p id="descriptionHere"></p></div>
+                                <div class="col-md-7 ml-auto">
+                                    <h3 id="dateHere"></h3>
+                                    <h4 id="typeHere"></h4>
+                                    <p id="descriptionHere"></p>
+                                </div>
                             </div>
                         </div>
 
@@ -63,10 +67,10 @@
         </div>
         <!--Beeswarm Graph-->
         <div class="row">
-            <div class="col-sm-2" id="checkboxes">
+            <div class="col-sm-2 padding-0" id="checkboxes">
                 <div class="type-static">
-                    <p style="font-size:17px; text-align:left">
-                        Filter Ephemera
+                    <p style="font-size:17px; text-align:left; color:#dfdfdf">
+                       <strong>Filter Ephemera</strong> 
                         <span class="type" style="--n:53">
                              to see trends throughout history
                         </span>
@@ -107,24 +111,23 @@
                                 <input type="checkbox" value="other" class="mdl-checkbox__input typeSort" checked="">    Other
                             </label>
                 <div>
-                    <br><br><br><br>
-                    <p class="type-static" style="color:#dfdfdf">
-                        Discover More
-                        <!--<span class="type" style="--n:53">-->
-                        <!--     to discover more-->
-                        <!--</span>-->
+                    <p class="type-static" style="color:#dfdfdf; text-align:left; font-size:17px;">
+                        <br><br><strong>Click Arrow</strong>
+                        <span class="type" style="--n:53">
+                             to sort the collection by documented movements <a class="ct-btn-scroll ct-js-btn-scroll padding-0" href="#section2" style="font-size:20px; color:#b9b6af; text-align:center; text-decoration: none;">&#11206;</a>
+                        </span>
                         <!--<span style="font-size: 50px">&#11022;</span>-->
-                        <a class="ct-btn-scroll ct-js-btn-scroll" href="#section2" style="font-size:60px">&#11147;</a>
+                       
                     </p>
                 </div>
             </div>
-            <div class="col-lg-10" id="svgbeeswarm"></div>
+            <div class="col-lg-10 padding-0" id="svgbeeswarm"></div>
         </div>
-        
+
         <!--Transition Text -->
         <div class="row">
             <div class="col-sm-2">
-                <span style="font-size:50px; color:#b9b6af" ; "text-align: center">&#x2b07;</span>
+                <span style="font-size:20px; color:#b9b6af" ; "text-align: center">&#11206;&#11206;&#11206;</span>
             </div>
         </div>
 
@@ -133,12 +136,13 @@
                 <div>
                     <p class="first-phrase" style="font-family: zilla slab; color:#b9b6af;">
                         How does ephemera shape a movement?
+                        <!--<span style="font-size:px; color:#b9b6af" ; "text-align: center">&#11191;</span> -->
                     </p>
                 </div>
                 <br>
             </div>
         </div>
-        
+
         <!--Cluster Graph -->
         <section id="section2">
             <div class="row">
@@ -149,7 +153,16 @@
                     <!--<button id="dateSort" class="button">By Year</button>-->
                 </div>
             </div>
-
+            <div class="row" id="movementTitles">
+                <div class="col-lg-10" style="color:white;">
+                    <h5 class="col-sm-2">Pan Africanism</h5>
+                    <h5 class="col-sm-2">Anti-Lynching Movement</h5>
+                    <h5 class="col-sm-2">Civil Rights Movement</h5>
+                    <h5 class="col-sm-2">Black Lives Matter</h5>
+                    <h5 class="col-sm-2">Black Power (Black Pride)</h5>
+                    <h5 class="col-sm-2">Anti-apartheid movements</h5>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-lg-10" id="svgclusters"></div>
             </div>

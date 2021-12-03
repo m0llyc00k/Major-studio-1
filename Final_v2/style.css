@@ -10,8 +10,13 @@ body {
     font-family: monospace;
     /*width: 50px;*/
     /*display: block;*/
-    /*text-anchor: left;*/
+    text-anchor: middle;
     
+}
+
+.padding-0{
+    padding-right:0;
+    padding-left:0;
 }
 
 p {
@@ -182,18 +187,18 @@ input[value="other"]:checked {
 
 .modal {
     text-align: center;
-    
 }
+
 
 @media screen and (min-width: 768px) {
     .modal:before {
         display: inline-block;
         vertical-align: middle;
         content: " ";
-        /*height: 100%;*/
-        padding-top: 50px;
+        height: 100%;
     }
 }
+
 
 .modal-dialog {
     display: inline-block;
@@ -201,9 +206,12 @@ input[value="other"]:checked {
     vertical-align: middle;
     cursor: pointer;
 }
+
+
 .modal-header {
     text-align: center;
 }
+
 
 img {
     cursor: none;
@@ -277,6 +285,10 @@ h6 {
     }
 }
 
+a {
+    text-decoration: none;
+}
+
 .type {
     font-family: monospace;
     color: #0000;
@@ -288,7 +300,7 @@ h6 {
     background-clip: padding-box, text;
     background-repeat: no-repeat;
     animation: b .7s infinite steps(1),
-    t calc(var(--n)*.3s) steps(var(--n)) forwards;
+    t calc(var(--n)*.1s) steps(var(--n)) forwards;
 }
 
 @keyframes t {
@@ -324,5 +336,5 @@ h6 {
 .first-phrase {
     color: #b9b6af;
     font-family: zilla slab;
-    font-size: 24px;
+    font-size: 22px;
 }

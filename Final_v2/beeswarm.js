@@ -78,7 +78,6 @@ svg.append("text")
 
 
 
-
 let xScale = d3.scaleLinear()
     .domain(allDates.map(d => d.dateSort))
     .range([margin.left, width - margin.right])
@@ -255,7 +254,7 @@ d3.csv("./beeswarm-data-new-rev_nov20.csv").then(function(data) {
             var descriptModal = button.data('description1')
             var dateModal = button.data('dateTrue1')
             var typeModal = button.data('typeTrue1')
-                console.log(recipient)
+            console.log(recipient)
 
             //   If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
             //   Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
@@ -268,9 +267,23 @@ d3.csv("./beeswarm-data-new-rev_nov20.csv").then(function(data) {
             modal.find('p').html(descriptModal)
             modal.find('h3').text(dateModal)
             modal.find('h4').text(typeModal)
-                magnify("imageMagnify", 1.5);
+
+
+            if ($('.img-magnifier-glass').length >= 1) {
+                $('.img-magnifier-glass').remove()
+            }
+            else {
+                magnify("imageMagnify", 2)
+            }
+            magnify("imageMagnify", 2)
 
         })
+
+        function removeMagnifier(d) {
+            var magnifierTrue = $('.img-magnifier-glass')
+
+            magnifierTrue.remove()
+        }
 
         function handleMouseOver(d, i) { // Add interactivity
             // Use D3 to select element, change size
@@ -402,8 +415,8 @@ d3.csv("./beeswarm-data-new-rev_nov20.csv").then(function(data) {
         glass.style.backgroundRepeat = "no-repeat";
         glass.style.backgroundSize = (img.width * zoom) + "px " + (img.height * zoom) + "px";
         bw = 3;
-        w = glass.offsetWidth / 2;
-        h = glass.offsetHeight / 2;
+        w = glass.offsetWidth/2; // /2
+        h = glass.offsetHeight/2; // /2
         /*execute a function when someone moves the magnifier glass over the image:*/
         glass.addEventListener("mousemove", moveMagnifier);
         img.addEventListener("mousemove", moveMagnifier);
@@ -455,4 +468,3 @@ d3.csv("./beeswarm-data-new-rev_nov20.csv").then(function(data) {
 }).catch(function(error) {
     if (error) throw error;
 });
-

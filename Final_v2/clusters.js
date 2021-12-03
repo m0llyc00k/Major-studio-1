@@ -277,18 +277,11 @@ d3.csv("./beeswarm-data-new-rev_dec1.csv").then(function(data2) {
 
         titles.enter().append('text')
             .attr('class', 'title2')
-            // .attr('fill', 'white')
-            // .attr('font-size', '15px')
-            // .attr('font-family', 'monospace')
-            // .attr('width', '10px')
-            // .attr('display', 'block')
-            // .style('text-align', 'left')
-            // .style('background-color', 'white')
             .merge(titles)
             .attr('x', function(d) { return scale(d); })
-            .attr('x', function(d,i ) { return 210*i+115 })
+            .attr('x', function(d,i ) { return 230*i+100 })
             .attr('y', 150)
-            .attr('text-anchor', 'middle')
+            // .attr('text-anchor', 'left')
             .text(function (d) { return d; });
 
 
