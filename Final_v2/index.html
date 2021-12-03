@@ -5,7 +5,7 @@
 <head>
     <title>Ephemera at the Smithsonian</title>
     <meta charset="utf-8">
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--libraries-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css" />
@@ -50,7 +50,7 @@
                                 <div class="col-md-5 ml-auto" id="imagemodal">
                                     <img id="imageMagnify" src "" width="" height=""></img>
                                 </div>
-                                <div class="col-md-6 ml-auto" id="descriptionHere"></div>
+                                <div class="col-md-7 ml-auto"><h3 id="dateHere"></h3><h4 id="typeHere"></h4><p id="descriptionHere"></p></div>
                             </div>
                         </div>
 
@@ -62,7 +62,7 @@
             </div>
         </div>
         <!--Beeswarm Graph-->
-        <div class="row justify-content-left">
+        <div class="row">
             <div class="col-sm-2" id="checkboxes">
                 <div class="type-static">
                     <p style="font-size:17px; text-align:left">
@@ -122,13 +122,13 @@
         </div>
         
         <!--Transition Text -->
-        <div class="row justify-content-left">
+        <div class="row">
             <div class="col-sm-2">
                 <span style="font-size:50px; color:#b9b6af" ; "text-align: center">&#x2b07;</span>
             </div>
         </div>
 
-        <div class="row justify-content-left">
+        <div class="row">
             <div class="col-md-6">
                 <div>
                     <p class="first-phrase" style="font-family: zilla slab; color:#b9b6af;">
@@ -141,7 +141,7 @@
         
         <!--Cluster Graph -->
         <section id="section2">
-            <div class="row justify-content-left">
+            <div class="row">
                 <div class="col-md-6" id="toolbar">
                     <button id="all" class="button active">All</button>
                     <button id="Movement" class="button">By Movement</button>
@@ -150,7 +150,7 @@
                 </div>
             </div>
 
-            <div class="row justify-content-left">
+            <div class="row">
                 <div class="col-lg-10" id="svgclusters"></div>
             </div>
         </section>

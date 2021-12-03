@@ -3,7 +3,7 @@
 
 let height = 850;
 let width = 1120;
-let margin = ({ top: 40, right: 40, bottom: 34, left: 40 });
+let margin = ({ top: 20, right: 40, bottom: 40, left: 20 });
 let allDates = [];
 
 // Data structure describing chart scales
@@ -229,14 +229,14 @@ d3.csv("./beeswarm-data-new-rev_nov20.csv").then(function(data) {
             .attr('data-title', function(d) {
                 return d.title
             })
-            .attr('data-typeTrue', function(d) {
-                return d.typeTrue
+            .attr('data-typeTrue1', function(d) {
+                return d.typeTrue1
             })
             .attr('data-description1', function(d) {
                 return d.description1
             })
-            .attr('data-dateTrue', function(d) {
-                return d.dateTrue
+            .attr('data-dateTrue1', function(d) {
+                return d.dateTrue1
             })
             .attr('data-filename1', d => {
                 // all our images are in the "images"
@@ -253,8 +253,8 @@ d3.csv("./beeswarm-data-new-rev_nov20.csv").then(function(data) {
             var imge = button.data('filename1')
             var titleModal = button.data('title')
             var descriptModal = button.data('description1')
-            var yearModal = button.data('dateTrue')
-            var typeModal = button.data('typeTrue')
+            var dateModal = button.data('dateTrue1')
+            var typeModal = button.data('typeTrue1')
                 console.log(recipient)
 
             //   If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
@@ -265,7 +265,9 @@ d3.csv("./beeswarm-data-new-rev_nov20.csv").then(function(data) {
             modal.find('img').attr("src", imge)
             // modal.find('.modal-year').text(yearModal)
             // modal.find('.modal-type').text(typeModal)
-            modal.find('.col-md-6').html('<strong>' + yearModal + '</strong>' + '<br>' + typeModal + '<br>' + descriptModal)
+            modal.find('p').html(descriptModal)
+            modal.find('h3').text(dateModal)
+            modal.find('h4').text(typeModal)
                 magnify("imageMagnify", 1.5);
 
         })
@@ -321,8 +323,8 @@ d3.csv("./beeswarm-data-new-rev_nov20.csv").then(function(data) {
     d3.selectAll(".title").on("mousemove", function(d) {
         tooltip.html(`<div>
                           <strong>${d.title}</strong><br>
-                          ${d.typeTrue}<br> 
-                          <strong>${d.dateTrue}</strong><br>
+                          ${d.typeTrue1}<br> 
+                          <strong>${d.dateTrue1}</strong><br>
                           </div>
                           `)
             .style('top', d3.event.pageY - 1 + 5 + 'px')

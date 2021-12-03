@@ -14,6 +14,10 @@ body {
     
 }
 
+p {
+    font-family: monospace;
+    font-size: 14px;
+}
 
 .button {
     min-width: 130px;
@@ -178,6 +182,7 @@ input[value="other"]:checked {
 
 .modal {
     text-align: center;
+    
 }
 
 @media screen and (min-width: 768px) {
@@ -185,7 +190,8 @@ input[value="other"]:checked {
         display: inline-block;
         vertical-align: middle;
         content: " ";
-        height: 100%;
+        /*height: 100%;*/
+        padding-top: 50px;
     }
 }
 
@@ -193,7 +199,16 @@ input[value="other"]:checked {
     display: inline-block;
     text-align: left;
     vertical-align: middle;
+    cursor: pointer;
+}
+.modal-header {
+    text-align: center;
+}
+
+img {
     cursor: none;
+    text-align: center;
+
 }
 
 * {
@@ -226,6 +241,7 @@ h6 {
     font-family: zilla slab;
     font-size: 20px;
     color: #343334;
+    /*text-align: center !important;*/
 }
 
 

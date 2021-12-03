@@ -26,10 +26,9 @@ var simulation = d3.forceSimulation()
     .force("charge", d3.forceManyBody())
     .force("y", d3.forceY().y(h / 2))
     .force("x", d3.forceX().x(w / 2))
+d3.csv("./beeswarm-data-new-rev_dec1.csv").then(function(data2) {
 
-d3.csv("./beeswarm-data-new-rev_dec1.csv").then(function(data) {
-
-    data.forEach(function(d) {
+    data2.forEach(function(d) {
         d.r = radius;
         d.x = w / 2;
         d.y = h / 2;
@@ -54,7 +53,7 @@ d3.csv("./beeswarm-data-new-rev_dec1.csv").then(function(data) {
         .attr("xlink:href", "+ d.primaryImage +")
 
     defs2.selectAll(".title-pattern2")
-        .data(data)
+        .data(data2)
         .enter().append("pattern")
         .attr("class", "title-pattern2")
         .attr("id", function(d) {
@@ -115,7 +114,7 @@ d3.csv("./beeswarm-data-new-rev_dec1.csv").then(function(data) {
     // }
 
     var circles = svg2.selectAll("circle")
-        .data(data, function(d) { return d.id; });
+        .data(data2, function(d) { return d.id; });
 
     var circlesEnter = circles.enter().append("circle")
         .attr("r", function(d, i) { return d.r; })
@@ -143,15 +142,15 @@ d3.csv("./beeswarm-data-new-rev_dec1.csv").then(function(data) {
         .attr('data-title', function(d) {
             return d.title
         })
-        .attr('data-typeTrue', function(d) {
-            return d.typeTrue
-        })
+        // .attr('data-typeTrue1', function(d) {
+        //     return d.typeTrue1
+        // })
         .attr('data-description1', function(d) {
             return d.description1
         })
-        .attr('data-dateTrue', function(d) {
-            return d.dateTrue
-        })
+        // .attr('data-dateTrue1', function(d) {
+        //     return d.dateTrue1
+        // })
         .attr('data-filename1', d => {
             // all our images are in the "images"
             // folder which we will need to 
@@ -167,8 +166,8 @@ d3.csv("./beeswarm-data-new-rev_dec1.csv").then(function(data) {
             var imge = button.data('filename1')
             var titleModal = button.data('title')
             var descriptModal = button.data('description1')
-            var yearModal = button.data('dateTrue')
-            var typeModal = button.data('typeTrue')
+            // var yearModal = button.data('dateTrue1')
+            // var typeModal = button.data('typeTrue1')
                 console.log(recipient)
 
             //   If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
@@ -179,7 +178,10 @@ d3.csv("./beeswarm-data-new-rev_dec1.csv").then(function(data) {
             modal.find('img').attr("src", imge)
             // modal.find('.modal-year').text(yearModal)
             // modal.find('.modal-type').text(typeModal)
-            modal.find('.col-md-6').html('<strong>' + yearModal + '</strong>' + '<br>' + typeModal + '<br>' + descriptModal)
+            modal.find('p').html(descriptModal)
+            // modal.find('h3').text(dateModal)
+            // modal.find('h4').text(typeModal)
+            // modal.find('.col-md-6').html('<strong>' + yearModal + '</strong>' + '<br>' + typeModal + '<br>' + descriptModal)
                 magnify("imageMagnify", 1.5);
 
         })
@@ -200,7 +202,7 @@ d3.csv("./beeswarm-data-new-rev_dec1.csv").then(function(data) {
     }
 
     simulation
-        .nodes(data)
+        .nodes(data2)
         .on("tick", ticked);
 
     function dragstarted(d, i) {
@@ -245,7 +247,7 @@ d3.csv("./beeswarm-data-new-rev_dec1.csv").then(function(data) {
 
     function splitBubbles(byVar) {
 
-        centerScale.domain(data.map(function(d) { return d[byVar]; }));
+        centerScale.domain(data2.map(function(d) { return d[byVar]; }));
 
         if (byVar == "id") {
             hideTitles()
