@@ -415,8 +415,8 @@ d3.csv("./beeswarm-data-new-rev_nov20.csv").then(function(data) {
         glass.style.backgroundRepeat = "no-repeat";
         glass.style.backgroundSize = (img.width * zoom) + "px " + (img.height * zoom) + "px";
         bw = 3;
-        w = glass.offsetWidth/2; // /2
-        h = glass.offsetHeight/2; // /2
+        w = glass.offsetWidth; // /2
+        h = glass.offsetHeight; // /2
         /*execute a function when someone moves the magnifier glass over the image:*/
         glass.addEventListener("mousemove", moveMagnifier);
         img.addEventListener("mousemove", moveMagnifier);

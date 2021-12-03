@@ -8,8 +8,34 @@ var color = d3.scaleOrdinal()
     .domain(["buttons", "signs", "posters", "placards", "correspondence", "pamphlets", "fliers", "other"])
     .range(['#d4c874', '#ba8a30', '#db666f', '#5c86aa', '#a53d24', '#76943c', '#66988d', '#ba5f41']);
 
-var centerScale = d3.scalePoint().padding(1).range([0, w]);
+var centerScale = d3.scalePoint().padding(1.4).range([1, w]);
 var forceStrength = 0.08;
+
+
+ ///////////////// labels for clusters ////////////////
+    function hideTitles() {
+        svg2.selectAll('.title2').remove();
+    }
+
+
+    function showTitles(byVar, scale) {
+        var titles = svg2.selectAll('.title2')
+            .data(scale.domain())
+
+
+
+        titles.enter().append('text')
+            .attr('class', 'title2')
+            .merge(titles)
+            .attr('x', function (d, i) { return scale(d)*1.18+i-120; })
+            // .attr('x', function(d,i ) { return 200*i+75 })
+            .attr('y', 190)
+            // .attr('text-anchor', 'left')
+            .text(function (d) { return d; });
+
+
+        titles.exit().remove()
+    }
 
 
 var svg2 = d3.select("#svgclusters").append("svg")
@@ -263,31 +289,7 @@ d3.csv("./beeswarm-data-new-rev_dec1.csv").then(function(data2) {
     }
 
 
-    ///////////////// labels for clusters ////////////////
-    function hideTitles() {
-        svg2.selectAll('.title2').remove();
-    }
-
-
-    function showTitles(byVar, scale) {
-        var titles = svg2.selectAll('.title2')
-            .data(scale.domain())
-
-
-
-        titles.enter().append('text')
-            .attr('class', 'title2')
-            .merge(titles)
-            .attr('x', function(d) { return scale(d); })
-            .attr('x', function(d,i ) { return 230*i+100 })
-            .attr('y', 150)
-            // .attr('text-anchor', 'left')
-            .text(function (d) { return d; });
-
-
-        titles.exit().remove()
-    }
-
+   
 
 
     function setupButtons() {

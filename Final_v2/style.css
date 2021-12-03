@@ -4,6 +4,10 @@ body {
     /*zoom: reset;*/
 }
 
+a: link {
+    text-decoration: none;
+}
+
 .title2 {
     fill: white;
     font-size: 15px;
@@ -11,7 +15,6 @@ body {
     /*width: 50px;*/
     /*display: block;*/
     text-anchor: middle;
-    
 }
 
 .padding-0{
