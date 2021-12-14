@@ -1,3 +1,5 @@
+
+
 <h3>Political and Activist Ephemera at the Smithsonian
 <br>Temporary Objects with Permanent Impact</h3>
 <h4>Molly Cook</h4>
@@ -11,6 +13,7 @@ Temporary, tangible objects that were once used as persuasive media become timel
 Project Here:
 https://m0llyc00k.github.io/major-studio-1/Final_v2/index.html
 <br>
-![image](https://user-images.githubusercontent.com/86888346/146074993-e2ad1ce1-4212-483c-8be1-b0f8f4dd158c.png)
+<image> ![image](https://user-images.githubusercontent.com/86888346/146074993-e2ad1ce1-4212-483c-8be1-b0f8f4dd158c.png)</image>
+ ![image](https://user-images.githubusercontent.com/86888346/146074993-e2ad1ce1-4212-483c-8be1-b0f8f4dd158c.png)
 ![image](https://user-images.githubusercontent.com/86888346/146075072-04ee1cf0-20ca-4601-bc55-d636781f1a53.png)
 ![image](https://user-images.githubusercontent.com/86888346/146075213-6c045cd8-3485-4739-bf22-0ea83e318ba4.png)
