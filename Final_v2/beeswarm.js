@@ -2,8 +2,8 @@
 /*global $ */
 
 let height = 850;
-let width = 1120;
-let margin = ({ top: 20, right: 40, bottom: 40, left: 20 });
+let width = 1130;
+let margin = ({ top: 20, right: 100, bottom: 40, left: 20 });
 let allDates = [];
 
 // Data structure describing chart scales
@@ -52,7 +52,7 @@ let svg = d3.select("#svgbeeswarm")
 
 svg.append("text")
     .attr("x", 0)
-    .attr("y", 70)
+    .attr("y", 20)
     .attr("text-anchor", "left")
     .style("font-size", "30px")
     .style("fill", "#b9b6af")
@@ -66,7 +66,7 @@ svg.append("text")
 // Add subtitle to graph
 svg.append("text")
     .attr("x", 0)
-    .attr("y", 110)
+    .attr("y", 60)
     .attr("text-anchor", "left")
     .style("font-size", "34px")
     .style("fill", "#b9b6af")
@@ -247,6 +247,7 @@ d3.csv("./beeswarm-data-new-rev_nov20.csv").then(function(data) {
             })
 
         $('#exampleModal').on('show.bs.modal', function(event) {
+
             var button = $(event.relatedTarget) // Button that triggered the modal
             var recipient = button.data('id') // Extract info from data-* attributes
             var imge = button.data('filename1')
@@ -255,9 +256,6 @@ d3.csv("./beeswarm-data-new-rev_nov20.csv").then(function(data) {
             var dateModal = button.data('dateTrue1')
             var typeModal = button.data('typeTrue1')
             console.log(recipient)
-
-            //   If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-            //   Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
             var modal = $(this)
             modal.find('.modal-title').html(titleModal)
             // modal.find('.col-md-5').html('<img id="image2" src= "' + imge + '"></img>')
@@ -269,21 +267,18 @@ d3.csv("./beeswarm-data-new-rev_nov20.csv").then(function(data) {
             modal.find('h4').text(typeModal)
 
 
-            if ($('.img-magnifier-glass').length >= 1) {
-                $('.img-magnifier-glass').remove()
-            }
-            else {
+            if ($('.img-magnifier-glass').length == null) {
                 magnify("imageMagnify", 2)
             }
-            magnify("imageMagnify", 2)
+            else {
+                $('.img-magnifier-glass').remove();
+            }
+            magnify("imageMagnify", 2);
 
         })
 
-        function removeMagnifier(d) {
-            var magnifierTrue = $('.img-magnifier-glass')
+        magnify("imageMagnify", 2);
 
-            magnifierTrue.remove()
-        }
 
         function handleMouseOver(d, i) { // Add interactivity
             // Use D3 to select element, change size
@@ -324,9 +319,14 @@ d3.csv("./beeswarm-data-new-rev_nov20.csv").then(function(data) {
             svg.selectAll(".title")
                 .on("mouseover", handleMouseOver)
                 .on("mouseout", handleMouseOut)
+
+
+
         }
 
-
+        svg.selectAll(".title")
+            .on("mouseover", handleMouseOver)
+            .on("mouseout", handleMouseOut);
 
 
     }

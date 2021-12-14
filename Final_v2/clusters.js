@@ -1,6 +1,6 @@
 /* global d3 */
 
-var w = 1400,
+var w = 1345,
     h = 750;
 
 var radius = 12;
@@ -12,30 +12,30 @@ var centerScale = d3.scalePoint().padding(1.4).range([1, w]);
 var forceStrength = 0.08;
 
 
- ///////////////// labels for clusters ////////////////
-    function hideTitles() {
-        svg2.selectAll('.title2').remove();
-    }
+///////////////// labels for clusters ////////////////
+function hideTitles() {
+    svg2.selectAll('.title2').remove();
+}
 
 
-    function showTitles(byVar, scale) {
-        var titles = svg2.selectAll('.title2')
-            .data(scale.domain())
+function showTitles(byVar, scale) {
+    var titles = svg2.selectAll('.title2')
+        .data(scale.domain())
 
 
 
-        titles.enter().append('text')
-            .attr('class', 'title2')
-            .merge(titles)
-            .attr('x', function (d, i) { return scale(d)*1.18+i-120; })
-            // .attr('x', function(d,i ) { return 200*i+75 })
-            .attr('y', 190)
-            // .attr('text-anchor', 'left')
-            .text(function (d) { return d; });
+    titles.enter().append('text')
+        .attr('class', 'title2')
+        .merge(titles)
+        .attr('x', function(d, i) { return scale(d) * 1.18 + i - 120; })
+        // .attr('x', function(d,i ) { return 200*i+75 })
+        .attr('y', 190)
+        // .attr('text-anchor', 'left')
+        .text(function(d) { return d; });
 
 
-        titles.exit().remove()
-    }
+    titles.exit().remove()
+}
 
 
 var svg2 = d3.select("#svgclusters").append("svg")
@@ -61,9 +61,9 @@ d3.csv("./beeswarm-data-new-rev_dec1.csv").then(function(data2) {
     })
 
     // console.log(data);
-    
-    
-//////to fill each bubble with image//////
+
+
+    //////to fill each bubble with image//////
     var defs2 = svg2.append('defs2');
 
     defs2.append("pattern")
@@ -99,7 +99,7 @@ d3.csv("./beeswarm-data-new-rev_dec1.csv").then(function(data2) {
 
 
 
-    function handleMouseOver2(d, i) { 
+    function handleMouseOver2(d, i) {
 
         d3.select(this)
             .attr("r", 50)
@@ -121,23 +121,6 @@ d3.csv("./beeswarm-data-new-rev_dec1.csv").then(function(data2) {
 
     };
 
-    // function clicked2(d) {
-
-    //     var me = d3.select(this)
-    //     console.log(me.classed("selected"))
-    //     me.classed("selected", !me.classed("selected"))
-
-    //     d3.selectAll("circle")
-    //         .style("fill", function(d, i) { return color(d.typeSort); })
-
-    //     d3.selectAll("circle.selected")
-    //         .style("fill", function(d) {
-    //             return "url(#" + d.id + ")"
-    //         })
-    //     d3.selectAll("circle")
-    //         .on("mouseover", handleMouseOver2)
-    //         .on("mouseout", handleMouseOut2);
-    // }
 
     var circles = svg2.selectAll("circle")
         .data(data2, function(d) { return d.id; });
@@ -186,31 +169,36 @@ d3.csv("./beeswarm-data-new-rev_dec1.csv").then(function(data2) {
             // return d.primaryImage
         })
 
-        $('#exampleModal').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget) // Button that triggered the modal
-            var recipient = button.data('id') // Extract info from data-* attributes
-            var imge = button.data('filename1')
-            var titleModal = button.data('title')
-            var descriptModal = button.data('description1')
-            // var yearModal = button.data('dateTrue1')
-            // var typeModal = button.data('typeTrue1')
-                console.log(recipient)
+    $('#exampleModal').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var recipient = button.data('id') // Extract info from data-* attributes
+        var imge = button.data('filename1')
+        var titleModal = button.data('title')
+        var descriptModal = button.data('description1')
+        // var yearModal = button.data('dateTrue1')
+        // var typeModal = button.data('typeTrue1')
+        console.log(recipient)
 
-            //   If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-            //   Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-            var modal = $(this)
-            modal.find('.modal-title').html(titleModal)
-            // modal.find('.col-md-5').html('<img id="image2" src= "' + imge + '"></img>')
-            modal.find('img').attr("src", imge)
-            // modal.find('.modal-year').text(yearModal)
-            // modal.find('.modal-type').text(typeModal)
-            modal.find('p').html(descriptModal)
-            // modal.find('h3').text(dateModal)
-            // modal.find('h4').text(typeModal)
-            // modal.find('.col-md-6').html('<strong>' + yearModal + '</strong>' + '<br>' + typeModal + '<br>' + descriptModal)
-                magnify("imageMagnify", 1.5);
+        var modal = $(this)
+        modal.find('.modal-title').html(titleModal)
+        // modal.find('.col-md-5').html('<img id="image2" src= "' + imge + '"></img>')
+        modal.find('img').attr("src", imge)
+        // modal.find('.modal-year').text(yearModal)
+        // modal.find('.modal-type').text(typeModal)
+        modal.find('p').html(descriptModal)
+        // modal.find('h3').text(dateModal)
+        // modal.find('h4').text(typeModal)
+        // modal.find('.col-md-6').html('<strong>' + yearModal + '</strong>' + '<br>' + typeModal + '<br>' + descriptModal)
+        if ($('.img-magnifier-glass').length == null) {
+            magnify("imageMagnify", 2)
+        }
+        else {
+            $('.img-magnifier-glass').remove();
+        }
+        magnify("imageMagnify", 2);
 
-        })
+    })
+
 
     circles = circles.merge(circlesEnter)
 
@@ -261,6 +249,12 @@ d3.csv("./beeswarm-data-new-rev_dec1.csv").then(function(data2) {
             .style("fill", function(d) {
                 return "url(#" + d.id + ")"
             })
+        d3.selectAll("circle")
+            .on("mouseover", handleMouseOver2)
+            .on("mouseout", handleMouseOut2);
+        svg.selectAll(".title")
+            .on("mouseover", handleMouseOver2)
+            .on("mouseout", handleMouseOut2);
 
     }
 
@@ -289,7 +283,7 @@ d3.csv("./beeswarm-data-new-rev_dec1.csv").then(function(data2) {
     }
 
 
-   
+
 
 
     function setupButtons() {
@@ -318,71 +312,72 @@ d3.csv("./beeswarm-data-new-rev_dec1.csv").then(function(data2) {
 
 })
 
+///magnifying glass// 
+function magnify(imgID, zoom) {
+    var img, glass, w, h, bw;
+    img = document.getElementById(imgID);
+    console.log(img)
+    /*create magnifier glass:*/
+    glass = document.createElement("DIV");
+    glass.setAttribute("class", "img-magnifier-glass");
+
+    /*insert magnifier glass:*/
+
+    img.parentElement.insertBefore(glass, img);
+    /*set background properties for the magnifier glass:*/
+    glass.style.backgroundImage = "url('" + img.src + "')";
+    glass.style.backgroundRepeat = "no-repeat";
+    glass.style.backgroundSize = (img.width * zoom) + "px " + (img.height * zoom) + "px";
+    bw = 3;
+    w = glass.offsetWidth; // /2
+    h = glass.offsetHeight; // /2
+    /*execute a function when someone moves the magnifier glass over the image:*/
+    glass.addEventListener("mousemove", moveMagnifier);
+    img.addEventListener("mousemove", moveMagnifier);
+    /*and also for touch screens:*/
+    glass.addEventListener("touchmove", moveMagnifier);
+    img.addEventListener("touchmove", moveMagnifier);
 
 
-
-// ////////////////magnifying glass////////////////////////
-// function magnify(imgID, zoom) {
-//     var img, glass, w, h, bw;
-//     img = document.getElementById(imgID);
-//     console.log(img)
-//     /*create magnifier glass:*/
-
-//     glass = document.createElement("DIV");
-//     if (glass == 0) {
-//         glass++
-//     }
-//     glass.setAttribute("class", "img-magnifier-glass");
-//     /*insert magnifier glass:*/
-//     img.parentElement.insertBefore(glass, img);
-//     /*set background properties for the magnifier glass:*/
-//     glass.style.backgroundImage = "url('" + img.src + "')";
-//     glass.style.backgroundRepeat = "no-repeat";
-//     glass.style.backgroundSize = (img.width * zoom) + "px " + (img.height * zoom) + "px";
-//     bw = 3;
-//     w = glass.offsetWidth / 2;
-//     h = glass.offsetHeight / 2;
-//     /*execute a function when someone moves the magnifier glass over the image:*/
-//     glass.addEventListener("mousemove", moveMagnifier);
-//     img.addEventListener("mousemove", moveMagnifier);
-//     /*and also for touch screens:*/
-//     glass.addEventListener("touchmove", moveMagnifier);
-//     img.addEventListener("touchmove", moveMagnifier);
+    function moveMagnifier(e) {
+        var pos, x, y;
+        /*prevent any other actions that may occur when moving over the image*/
+        e.preventDefault();
+        /*get the cursor's x and y positions:*/
+        pos = getCursorPos(e);
+        x = pos.x;
+        y = pos.y;
+        /*prevent the magnifier glass from being positioned outside the image:*/
+        if (x > img.width - (w / zoom)) { x = img.width - (w / zoom); }
+        if (x < w / zoom) { x = w / zoom; }
+        if (y > img.height - (h / zoom)) { y = img.height - (h / zoom); }
+        if (y < h / zoom) { y = h / zoom; }
+        /*set the position of the magnifier glass:*/
+        glass.style.left = (x - w) + "px";
+        glass.style.top = (y - h) + "px";
+        /*display what the magnifier glass "sees":*/
+        glass.style.backgroundPosition = "-" + ((x * zoom) - w + bw) + "px -" + ((y * zoom) - h + bw) + "px";
+    }
 
 
-//     function moveMagnifier(e) {
-//         var pos, x, y;
-//         /*prevent any other actions that may occur when moving over the image*/
-//         e.preventDefault();
-//         /*get the cursor's x and y positions:*/
-//         pos = getCursorPos(e);
-//         x = pos.x;
-//         y = pos.y;
-//         /*prevent the magnifier glass from being positioned outside the image:*/
-//         if (x > img.width - (w / zoom)) { x = img.width - (w / zoom); }
-//         if (x < w / zoom) { x = w / zoom; }
-//         if (y > img.height - (h / zoom)) { y = img.height - (h / zoom); }
-//         if (y < h / zoom) { y = h / zoom; }
-//         /*set the position of the magnifier glass:*/
-//         glass.style.left = (x - w) + "px";
-//         glass.style.top = (y - h) + "px";
-//         /*display what the magnifier glass "sees":*/
-//         glass.style.backgroundPosition = "-" + ((x * zoom) - w + bw) + "px -" + ((y * zoom) - h + bw) + "px";
-//     }
+    function getCursorPos(e) {
+        var a, x = 0,
+            y = 0;
+        e = e || window.event;
+        /*get the x and y positions of the image:*/
+        a = img.getBoundingClientRect();
+        /*calculate the cursor's x and y coordinates, relative to the image:*/
+        x = e.pageX - a.left;
+        y = e.pageY - a.top;
+        /*consider any page scrolling:*/
+        x = x - window.pageXOffset;
+        y = y - window.pageYOffset;
+        return { x: x, y: y };
+    }
+}
 
+function removeMagnifier(d) {
+    var magnifierTrue = $('.img-magnifier-glass')
 
-//     function getCursorPos(e) {
-//         var a, x = 0,
-//             y = 0;
-//         e = e || window.event;
-//         /*get the x and y positions of the image:*/
-//         a = img.getBoundingClientRect();
-//         /*calculate the cursor's x and y coordinates, relative to the image:*/
-//         x = e.pageX - a.left;
-//         y = e.pageY - a.top;
-//         /*consider any page scrolling:*/
-//         x = x - window.pageXOffset;
-//         y = y - window.pageYOffset;
-//         return { x: x, y: y };
-//     }
-// }
+    magnifierTrue.remove()
+}

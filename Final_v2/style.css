@@ -17,9 +17,9 @@ a: link {
     text-anchor: middle;
 }
 
-.padding-0{
-    padding-right:0;
-    padding-left:0;
+.padding-0 {
+    padding-right: 0;
+    padding-left: 0;
 }
 
 p {
@@ -85,8 +85,6 @@ input[type="checkbox"] {
 
 .col-sm-2 {
     background-color: #343334;
-    /*padding-left: 20px;*/
-    /*border-radius: 25px;*/
     padding-top: 140px;
 }
 
@@ -135,8 +133,11 @@ div.tooltip {
 /*.typeSort {}*/
 
 .container {
-    padding-top: 20px;
-    max-width: 90%;
+    padding-top: 0px;
+    max-width: 100%;
+    text-align: center;
+    height: 100%;
+    width: 85%;
 }
 
 
@@ -174,22 +175,23 @@ input[value="other"]:checked {
     background-color: #ba5f41;
 }
 
-/*.modal-dialog {*/
+.modal-dialog {
 
-/*    max-height: calc(200vh - 120px);*/
+    max-height: calc(200vh - 120px);
 
-/*}*/
+}
 
-/*.modal-content {*/
+.modal-content {
 
-/*    height: 50%;*/
+    height: 50%;
 
-/*    overflow:visible;*/
+    overflow:visible;
 
-/*}*/
+}
 
 .modal {
     text-align: center;
+    vertical-align: middle;
 }
 
 
@@ -199,6 +201,7 @@ input[value="other"]:checked {
         vertical-align: middle;
         content: " ";
         height: 100%;
+
     }
 }
 
@@ -208,6 +211,10 @@ input[value="other"]:checked {
     text-align: left;
     vertical-align: middle;
     cursor: pointer;
+    /*position: absolute;*/
+    /*top: 50%;*/
+    /*left: 50%;*/
+    /*transform: translate(-50%, -50%) !important;*/
 }
 
 
@@ -223,7 +230,7 @@ img {
 }
 
 * {
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
 }
 
 .img-magnifier-container {
@@ -248,6 +255,7 @@ h7 {
     font-size: 5px;
 }
 
+
 h6 {
     font-family: zilla slab;
     font-size: 20px;
@@ -260,9 +268,8 @@ h6 {
     color: #b9b6af;
     font-family: monospace;
     font-size: 18px;
-    text-align: center;
+    text-align: left;
 }
-
 
 
 /* The typing effect */
@@ -271,6 +278,7 @@ h6 {
     from {
         width: 0
     }
+
     to {
         width: 100%
     }
@@ -279,10 +287,12 @@ h6 {
 /* The typewriter cursor effect */
 
 @keyframes blink-caret {
+
     from,
     to {
         border-color: transparent
     }
+
     50% {
         border-color: #dfdfdf
     }
@@ -295,15 +305,15 @@ a {
 .type {
     font-family: monospace;
     color: #0000;
-    text-align: inherit;
+    /*text-align: inherit;*/
     background: linear-gradient(-90deg, #b9b6af 5px, #0000 0) 10px 0,
-    linear-gradient(#b9b6af 0 0) 0 0;
+        linear-gradient(#b9b6af 0 0) 0 0;
     background-size: calc(var(--n)*1ch) 200%;
     -webkit-background-clip: padding-box, text;
     background-clip: padding-box, text;
     background-repeat: no-repeat;
     animation: b .7s infinite steps(1),
-    t calc(var(--n)*.1s) steps(var(--n)) forwards;
+        t calc(var(--n)*.1s) steps(var(--n)) forwards;
 }
 
 @keyframes t {
@@ -341,3 +351,4 @@ a {
     font-family: zilla slab;
     font-size: 22px;
 }
+
