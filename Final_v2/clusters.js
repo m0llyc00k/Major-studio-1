@@ -108,6 +108,11 @@ d3.csv("./beeswarm-data-new-rev_dec1.csv").then(function(data2) {
             })
 
             .raise()
+
+        d3.selectAll("circle.selected")
+            .style("fill", function(d) {
+                return "url(#" + d.id + ")"
+            })
     }
 
 
@@ -118,6 +123,10 @@ d3.csv("./beeswarm-data-new-rev_dec1.csv").then(function(data2) {
             .style("fill", function(d, i) { return color(d.typeSort); })
         tooltip.style("opacity", 0);
         xLine.attr("opacity", 0);
+        d3.selectAll("circle.selected")
+            .style("fill", function(d) {
+                return "url(#" + d.id + ")"
+            })
 
     };
 
@@ -169,36 +178,6 @@ d3.csv("./beeswarm-data-new-rev_dec1.csv").then(function(data2) {
             // return d.primaryImage
         })
 
-    $('#exampleModal').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget) // Button that triggered the modal
-        var recipient = button.data('id') // Extract info from data-* attributes
-        var imge = button.data('filename1')
-        var titleModal = button.data('title')
-        var descriptModal = button.data('description1')
-        // var yearModal = button.data('dateTrue1')
-        // var typeModal = button.data('typeTrue1')
-        console.log(recipient)
-
-        var modal = $(this)
-        modal.find('.modal-title').html(titleModal)
-        // modal.find('.col-md-5').html('<img id="image2" src= "' + imge + '"></img>')
-        modal.find('img').attr("src", imge)
-        // modal.find('.modal-year').text(yearModal)
-        // modal.find('.modal-type').text(typeModal)
-        modal.find('p').html(descriptModal)
-        // modal.find('h3').text(dateModal)
-        // modal.find('h4').text(typeModal)
-        // modal.find('.col-md-6').html('<strong>' + yearModal + '</strong>' + '<br>' + typeModal + '<br>' + descriptModal)
-        if ($('.img-magnifier-glass').length == null) {
-            magnify("imageMagnify", 2)
-        }
-        else {
-            $('.img-magnifier-glass').remove();
-        }
-        magnify("imageMagnify", 2);
-
-    })
-
 
     circles = circles.merge(circlesEnter)
 
@@ -213,6 +192,10 @@ d3.csv("./beeswarm-data-new-rev_dec1.csv").then(function(data2) {
         circles
             .attr("cx", function(d) { return d.x; })
             .attr("cy", function(d) { return d.y; });
+        d3.selectAll("circle.selected")
+            .style("fill", function(d) {
+                return "url(#" + d.id + ")"
+            })
     }
 
     simulation
@@ -224,12 +207,20 @@ d3.csv("./beeswarm-data-new-rev_dec1.csv").then(function(data2) {
         if (!d3.event.active) simulation.alpha(1).restart();
         d.fx = d.x;
         d.fy = d.y;
+        d3.selectAll("circle.selected")
+            .style("fill", function(d) {
+                return "url(#" + d.id + ")"
+            })
     }
 
     function dragged(d, i) {
         //console.log("dragged " + i)
         d.fx = d3.event.x;
         d.fy = d3.event.y;
+        d3.selectAll("circle.selected")
+            .style("fill", function(d) {
+                return "url(#" + d.id + ")"
+            })
     }
 
 
@@ -242,8 +233,9 @@ d3.csv("./beeswarm-data-new-rev_dec1.csv").then(function(data2) {
         console.log(me.classed("selected"))
         me.classed("selected", !me.classed("selected"))
 
-        d3.selectAll("circle")
-            .style("fill", function(d, i) { return color(d.typeSort); })
+        // d3.selectAll("circle")
+        //     .style("fill", function(d, i) { return color(d.typeSort); })
+
 
         d3.selectAll("circle.selected")
             .style("fill", function(d) {
@@ -259,11 +251,13 @@ d3.csv("./beeswarm-data-new-rev_dec1.csv").then(function(data2) {
     }
 
 
+
     function groupBubbles() {
         hideTitles();
         simulation.force('x', d3.forceX().strength(.05));
         simulation.alpha(1).restart();
     }
+
 
     function splitBubbles(byVar) {
 
@@ -311,73 +305,3 @@ d3.csv("./beeswarm-data-new-rev_dec1.csv").then(function(data2) {
     setupButtons()
 
 })
-
-///magnifying glass// 
-function magnify(imgID, zoom) {
-    var img, glass, w, h, bw;
-    img = document.getElementById(imgID);
-    console.log(img)
-    /*create magnifier glass:*/
-    glass = document.createElement("DIV");
-    glass.setAttribute("class", "img-magnifier-glass");
-
-    /*insert magnifier glass:*/
-
-    img.parentElement.insertBefore(glass, img);
-    /*set background properties for the magnifier glass:*/
-    glass.style.backgroundImage = "url('" + img.src + "')";
-    glass.style.backgroundRepeat = "no-repeat";
-    glass.style.backgroundSize = (img.width * zoom) + "px " + (img.height * zoom) + "px";
-    bw = 3;
-    w = glass.offsetWidth; // /2
-    h = glass.offsetHeight; // /2
-    /*execute a function when someone moves the magnifier glass over the image:*/
-    glass.addEventListener("mousemove", moveMagnifier);
-    img.addEventListener("mousemove", moveMagnifier);
-    /*and also for touch screens:*/
-    glass.addEventListener("touchmove", moveMagnifier);
-    img.addEventListener("touchmove", moveMagnifier);
-
-
-    function moveMagnifier(e) {
-        var pos, x, y;
-        /*prevent any other actions that may occur when moving over the image*/
-        e.preventDefault();
-        /*get the cursor's x and y positions:*/
-        pos = getCursorPos(e);
-        x = pos.x;
-        y = pos.y;
-        /*prevent the magnifier glass from being positioned outside the image:*/
-        if (x > img.width - (w / zoom)) { x = img.width - (w / zoom); }
-        if (x < w / zoom) { x = w / zoom; }
-        if (y > img.height - (h / zoom)) { y = img.height - (h / zoom); }
-        if (y < h / zoom) { y = h / zoom; }
-        /*set the position of the magnifier glass:*/
-        glass.style.left = (x - w) + "px";
-        glass.style.top = (y - h) + "px";
-        /*display what the magnifier glass "sees":*/
-        glass.style.backgroundPosition = "-" + ((x * zoom) - w + bw) + "px -" + ((y * zoom) - h + bw) + "px";
-    }
-
-
-    function getCursorPos(e) {
-        var a, x = 0,
-            y = 0;
-        e = e || window.event;
-        /*get the x and y positions of the image:*/
-        a = img.getBoundingClientRect();
-        /*calculate the cursor's x and y coordinates, relative to the image:*/
-        x = e.pageX - a.left;
-        y = e.pageY - a.top;
-        /*consider any page scrolling:*/
-        x = x - window.pageXOffset;
-        y = y - window.pageYOffset;
-        return { x: x, y: y };
-    }
-}
-
-function removeMagnifier(d) {
-    var magnifierTrue = $('.img-magnifier-glass')
-
-    magnifierTrue.remove()
-}

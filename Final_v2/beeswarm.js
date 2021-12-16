@@ -1,6 +1,22 @@
 /*global d3*/
 /*global $ */
 
+//scroll transition
+$(document).ready(function() {
+    $("a").on('click', function(event) {
+        if (this.hash !== "") {
+            event.preventDefault();
+            var hash = this.hash;
+            $('html, body').animate({
+                scrollTop: $(hash).offset().top
+            }, 800, function() {
+                window.location.hash = hash;
+            });
+        }
+    });
+});
+
+//set up beeswarm
 let height = 850;
 let width = 1130;
 let margin = ({ top: 20, right: 100, bottom: 40, left: 20 });
@@ -245,39 +261,8 @@ d3.csv("./beeswarm-data-new-rev_nov20.csv").then(function(data) {
                 // return d.primaryImage
                 // return d.primaryImage
             })
-
-        $('#exampleModal').on('show.bs.modal', function(event) {
-
-            var button = $(event.relatedTarget) // Button that triggered the modal
-            var recipient = button.data('id') // Extract info from data-* attributes
-            var imge = button.data('filename1')
-            var titleModal = button.data('title')
-            var descriptModal = button.data('description1')
-            var dateModal = button.data('dateTrue1')
-            var typeModal = button.data('typeTrue1')
-            console.log(recipient)
-            var modal = $(this)
-            modal.find('.modal-title').html(titleModal)
-            // modal.find('.col-md-5').html('<img id="image2" src= "' + imge + '"></img>')
-            modal.find('img').attr("src", imge)
-            // modal.find('.modal-year').text(yearModal)
-            // modal.find('.modal-type').text(typeModal)
-            modal.find('p').html(descriptModal)
-            modal.find('h3').text(dateModal)
-            modal.find('h4').text(typeModal)
-
-
-            if ($('.img-magnifier-glass').length == null) {
-                magnify("imageMagnify", 2)
-            }
-            else {
-                $('.img-magnifier-glass').remove();
-            }
             magnify("imageMagnify", 2);
 
-        })
-
-        magnify("imageMagnify", 2);
 
 
         function handleMouseOver(d, i) { // Add interactivity
@@ -290,6 +275,9 @@ d3.csv("./beeswarm-data-new-rev_nov20.csv").then(function(data) {
 
             d3.select(this).raise()
             tooltip.style("opacity", 1)
+            var me = d3.select(this)
+            console.log(me.classed("selected"))
+            me.classed("selected", !me.classed("selected"))
         };
 
 
@@ -300,6 +288,9 @@ d3.csv("./beeswarm-data-new-rev_nov20.csv").then(function(data) {
                 .attr("fill", function(d, i) { return colors(d.typeSort); })
             tooltip.style("opacity", 0);
             xLine.attr("opacity", 0);
+            var me = d3.select(this)
+            console.log(me.classed("selected"))
+            me.classed("selected", !me.classed("selected"))
         };
 
         function clicked(d) {
@@ -317,16 +308,13 @@ d3.csv("./beeswarm-data-new-rev_nov20.csv").then(function(data) {
                 })
 
             svg.selectAll(".title")
-                .on("mouseover", handleMouseOver)
-                .on("mouseout", handleMouseOut)
+                .on("mouseover", handleMouseOver2)
+                .on("mouseout", handleMouseOut2)
+                
 
 
 
         }
-
-        svg.selectAll(".title")
-            .on("mouseover", handleMouseOver)
-            .on("mouseout", handleMouseOut);
 
 
     }
@@ -373,6 +361,7 @@ d3.csv("./beeswarm-data-new-rev_nov20.csv").then(function(data) {
                 }
             }
             return checkboxesChecked.length > 0 ? checkboxesChecked : null;
+            
         }
 
         let checkedBoxes = getCheckedBoxes(".typeSort");
@@ -394,11 +383,57 @@ d3.csv("./beeswarm-data-new-rev_nov20.csv").then(function(data) {
 
         dataSet = newData;
         redraw();
+        var me = d3.select(this)
+        console.log(me.classed("selected"))
+        me.classed("selected", !me.classed("selected"))
+
+        // d3.selectAll("circle")
+        //     .style("fill", function(d, i) { return color(d.typeSort); })
+
+
+        d3.selectAll("circle.selected")
+            .style("fill", function(d) {
+                return "url(#" + d.id + ")"
+            })
 
     }
 
+ ///Modal///
+        $('#exampleModal').on('show.bs.modal', function(event) {
 
-    ///magnifying glass// insert if statement here?
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = button.data('id') // Extract info from data-* attributes
+            var imge = button.data('filename1')
+            var titleModal = button.data('title')
+            var descriptModal = button.data('description1')
+            var dateModal = button.data('dateTrue1')
+            var typeModal = button.data('typeTrue1')
+            console.log(recipient)
+            var modal = $(this)
+            modal.find('.modal-title').html(titleModal)
+            // modal.find('.col-md-5').html('<img id="image2" src= "' + imge + '"></img>')
+            modal.find('img').attr("src", imge)
+            // modal.find('.modal-year').text(yearModal)
+            // modal.find('.modal-type').text(typeModal)
+            modal.find('p').html(descriptModal)
+            modal.find('h3').text(dateModal)
+            modal.find('h4').text(typeModal)
+
+
+            if ($('.img-magnifier-glass').length === 0) {
+                magnify("imageMagnify", 2)
+            }
+            else {
+                $('.img-magnifier-glass').remove();
+            }
+            magnify("imageMagnify", 2);
+
+        })
+
+
+        
+
+    ///magnifying glass// 
     function magnify(imgID, zoom) {
         var img, glass, w, h, bw;
         img = document.getElementById(imgID);

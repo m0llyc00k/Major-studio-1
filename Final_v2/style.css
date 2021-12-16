@@ -2,11 +2,12 @@ body {
     background-color: #343334;
     /*background-color: #161616;*/
     /*zoom: reset;*/
+    overflow: scroll;
 }
 
-a: link {
-    text-decoration: none;
-}
+/*a: link {*/
+/*    text-decoration: none;*/
+/*}*/
 
 .title2 {
     fill: white;
@@ -185,7 +186,7 @@ input[value="other"]:checked {
 
     height: 50%;
 
-    overflow:visible;
+    overflow: visible;
 
 }
 
@@ -351,4 +352,3 @@ a {
     font-family: zilla slab;
     font-size: 22px;
 }
-
