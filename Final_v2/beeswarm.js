@@ -261,7 +261,7 @@ d3.csv("./beeswarm-data-new-rev_nov20.csv").then(function(data) {
                 // return d.primaryImage
                 // return d.primaryImage
             })
-            magnify("imageMagnify", 2);
+        magnify("imageMagnify", 2);
 
 
 
@@ -310,7 +310,7 @@ d3.csv("./beeswarm-data-new-rev_nov20.csv").then(function(data) {
             svg.selectAll(".title")
                 .on("mouseover", handleMouseOver2)
                 .on("mouseout", handleMouseOut2)
-                
+
 
 
 
@@ -361,7 +361,7 @@ d3.csv("./beeswarm-data-new-rev_nov20.csv").then(function(data) {
                 }
             }
             return checkboxesChecked.length > 0 ? checkboxesChecked : null;
-            
+
         }
 
         let checkedBoxes = getCheckedBoxes(".typeSort");
@@ -398,45 +398,54 @@ d3.csv("./beeswarm-data-new-rev_nov20.csv").then(function(data) {
 
     }
 
- ///Modal///
-        $('#exampleModal').on('show.bs.modal', function(event) {
+    ///Modal///
+    $('#exampleModal').on('show.bs.modal', function(event) {
 
-            var button = $(event.relatedTarget) // Button that triggered the modal
-            var recipient = button.data('id') // Extract info from data-* attributes
-            var imge = button.data('filename1')
-            var titleModal = button.data('title')
-            var descriptModal = button.data('description1')
-            var dateModal = button.data('dateTrue1')
-            var typeModal = button.data('typeTrue1')
-            console.log(recipient)
-            var modal = $(this)
-            modal.find('.modal-title').html(titleModal)
-            // modal.find('.col-md-5').html('<img id="image2" src= "' + imge + '"></img>')
-            modal.find('img').attr("src", imge)
-            // modal.find('.modal-year').text(yearModal)
-            // modal.find('.modal-type').text(typeModal)
-            modal.find('p').html(descriptModal)
-            modal.find('h3').text(dateModal)
-            modal.find('h4').text(typeModal)
-
-
-            if ($('.img-magnifier-glass').length === 0) {
-                magnify("imageMagnify", 2)
-            }
-            else {
-                $('.img-magnifier-glass').remove();
-            }
-            magnify("imageMagnify", 2);
-
-        })
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var recipient = button.data('id') // Extract info from data-* attributes
+        var imge = button.data('filename1')
+        var titleModal = button.data('title')
+        var descriptModal = button.data('description1')
+        var dateModal = button.data('dateTrue1')
+        var typeModal = button.data('typeTrue1')
+        console.log(recipient)
+        var modal = $(this)
+        modal.find('.modal-title').html(titleModal)
+        // modal.find('.col-md-5').html('<img id="image2" src= "' + imge + '"></img>')
+        modal.find('img').attr("src", imge)
+        // modal.find('.modal-year').text(yearModal)
+        // modal.find('.modal-type').text(typeModal)
+        modal.find('p').html(descriptModal)
+        modal.find('h3').text(dateModal)
+        modal.find('h4').text(typeModal)
 
 
-        
+        if ($('.img-magnifier-glass').length === 0) {
+            magnify("imageMagnify", 2)
+        }
+        else {
+            $('.img-magnifier-glass').remove();
+        }
+        magnify("imageMagnify", 2);
+
+    })
+
+
+
 
     ///magnifying glass// 
     function magnify(imgID, zoom) {
         var img, glass, w, h, bw;
         img = document.getElementById(imgID);
+
+        // img.setAttribute("width", this.width)
+        // img.setAttribute("height", this.height)
+        // img.height = document.getElementById("imageMagnify").naturalHeight
+        // img.width = document.getElementById("imageMagnify").naturalWidth
+        img.width  
+        img.height
+
+
         console.log(img)
         /*create magnifier glass:*/
         glass = document.createElement("DIV");
@@ -448,7 +457,7 @@ d3.csv("./beeswarm-data-new-rev_nov20.csv").then(function(data) {
         /*set background properties for the magnifier glass:*/
         glass.style.backgroundImage = "url('" + img.src + "')";
         glass.style.backgroundRepeat = "no-repeat";
-        glass.style.backgroundSize = (img.width * zoom) + "px " + (img.height * zoom) + "px";
+        glass.style.backgroundSize = (img.width * zoom) + "%" + (img.height * zoom) + "%";
         bw = 3;
         w = glass.offsetWidth; // /2
         h = glass.offsetHeight; // /2
