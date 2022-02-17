@@ -1,5 +1,0 @@
-2021-12-01 20:19:36 [ERROR]: log level: info
-2021-12-01 20:19:36 [INFO]: Retrieving AWS endpoint data
-2021-12-01 20:19:36 [INFO]: OS:  Linux x64 4.14.252-195.483.amzn2.x86_64
-2021-12-01 20:19:36 [INFO]: AWS Cloud9 Extension Host Version:  1.44.2AWS Toolkit Version:  1.33.0
-2021-12-01 20:24:37 [INFO]: telemetry: sent batch (size=3)

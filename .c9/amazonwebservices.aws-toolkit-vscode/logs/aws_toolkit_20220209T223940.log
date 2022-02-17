@@ -1,0 +1,7 @@
+2022-02-09 22:39:40 [ERROR]: log level: info
+2022-02-09 22:39:41 [INFO]: Retrieving AWS endpoint data
+2022-02-09 22:39:41 [INFO]: OS:  Linux x64 4.14.256-197.484.amzn2.x86_64
+2022-02-09 22:39:41 [INFO]: AWS Cloud9 Extension Host Version:  1.44.2
+2022-02-09 22:39:41 [INFO]: AWS Toolkit Version:  1.35.0
+2022-02-09 22:39:41 [INFO]: Log folder contains more than 100 logs or is over 100MB. Deleted the 117 oldest files
+2022-02-09 22:44:41 [INFO]: telemetry: sent batch (size=3)

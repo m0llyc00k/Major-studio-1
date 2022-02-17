@@ -419,8 +419,8 @@ d3.csv("./beeswarm-data-new-rev_nov20.csv").then(function(data) {
         modal.find('h3').text(dateModal)
         modal.find('h4').text(typeModal)
 
-
-        if ($('.img-magnifier-glass').length === 0) {
+        magnify("imageMagnify", 2)
+        if ($('.img-magnifier-glass').length === -1) {
             magnify("imageMagnify", 2)
         }
         else {
@@ -433,40 +433,36 @@ d3.csv("./beeswarm-data-new-rev_nov20.csv").then(function(data) {
 
 
 
-    ///magnifying glass// 
-    function magnify(imgID, zoom) {
+function magnify(imgID, zoom) {
         var img, glass, w, h, bw;
         img = document.getElementById(imgID);
 
-        // img.setAttribute("width", this.width)
-        // img.setAttribute("height", this.height)
-        // img.height = document.getElementById("imageMagnify").naturalHeight
-        // img.width = document.getElementById("imageMagnify").naturalWidth
-        img.width  
-        img.height
+        img.onload = function(){
+            let iw = this.width;
+            let ih = this.height;
 
+            /*create magnifier glass:*/
+            glass = document.createElement("DIV");
+            glass.setAttribute("class", "img-magnifier-glass");
 
-        console.log(img)
-        /*create magnifier glass:*/
-        glass = document.createElement("DIV");
-        glass.setAttribute("class", "img-magnifier-glass");
+            /*insert magnifier glass:*/
+            console.log(imgID, img, img.width);
 
-        /*insert magnifier glass:*/
-
-        img.parentElement.insertBefore(glass, img);
-        /*set background properties for the magnifier glass:*/
-        glass.style.backgroundImage = "url('" + img.src + "')";
-        glass.style.backgroundRepeat = "no-repeat";
-        glass.style.backgroundSize = (img.width * zoom) + "%" + (img.height * zoom) + "%";
-        bw = 3;
-        w = glass.offsetWidth; // /2
-        h = glass.offsetHeight; // /2
-        /*execute a function when someone moves the magnifier glass over the image:*/
-        glass.addEventListener("mousemove", moveMagnifier);
-        img.addEventListener("mousemove", moveMagnifier);
-        /*and also for touch screens:*/
-        glass.addEventListener("touchmove", moveMagnifier);
-        img.addEventListener("touchmove", moveMagnifier);
+            img.parentElement.insertBefore(glass, img);
+            /*set background properties for the magnifier glass:*/
+            glass.style.backgroundImage = "url('" + img.src + "')";
+            glass.style.backgroundRepeat = "no-repeat";
+            glass.style.backgroundSize = (iw * zoom) + "%" + (ih * zoom) + "%";
+            bw = 3;
+            w = glass.offsetWidth; // /2
+            h = glass.offsetHeight; // /2
+            /*execute a function when someone moves the magnifier glass over the image:*/
+            glass.addEventListener("mousemove", moveMagnifier);
+            img.addEventListener("mousemove", moveMagnifier);
+            /*and also for touch screens:*/
+            glass.addEventListener("touchmove", moveMagnifier);
+            img.addEventListener("touchmove", moveMagnifier);
+        }
 
 
         function moveMagnifier(e) {
